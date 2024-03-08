@@ -156,4 +156,25 @@ ansible-playbook --ask-become-pass install_apache.yml
 sudo firewall-cmd --add-port=80/tcp
 ```
 
+#### List tags:
+``` shell
+ansible-playbook --list-tags site.yml
+```
+![tagsOutput](./img/Screenshot_20240306_120328.png)
+
+#### Run playbook via tag having centos
+
+``` shell
+ansible-playbook --tags centos --ask-become-pass site.yml
+```
+
+mutliple tags:
+
+``` shell
+ansible-playbook --tags "db, apache" --ask-become-pass site.yml
+```
+
+
+
+
  
