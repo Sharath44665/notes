@@ -294,7 +294,8 @@ SELECT title, pages FROM books WHERE title LIKE '%\_%';
 
 ![Screenshot_20240413_183056.png](./img/Screenshot_20240413_183056.png)
 
-## Aggregate Functions
+### Aggregate Functions
+
 ### COUNT
 
 How many books in the table?
@@ -335,5 +336,271 @@ SELECT title, author_lname FROM books GROUP BY author_lname ;
 the above image is grouped like this:
 
 ![Screenshot_20240413_192405.png](./img/Screenshot_20240413_192405.png)
+
+``` sql
+SELECT author_lname, COUNT(*) FROM books GROUP BY author_lname ;
+``` 
+![Screenshot_20240414_211150.png](./img/Screenshot_20240414_211150.png)
+
+``` sql
+-- try this code also;
+SELECT author_fname , author_lname , COUNT(*) FROM books GROUP BY author_fname , author_lname ;
+```
+
+get the count of books that released in respective year:
+
+``` sql
+SELECT released_year , COUNT(*) FROM books GROUP BY released_year ;
+```
+
+### using MIN and MAX
+
+Get minimum pages in the books
+
+``` sql
+SELECT MIN(pages ) FROM books;
+```
+
+![Screenshot_20240414_213136.png](./img/Screenshot_20240414_213136.png)
+
+// respectively MAX works for highest values
+
+### SubQuery
+
+**Q**: What if i want the title of the longest Book?
+
+``` sql
+SELECT title , pages FROM books WHERE pages = (SELECT  MAX(pages) FROM books);
+```
+
+OR 
+
+``` sql
+SELECT title, pages FROM books ORDER BY pages DESC LIMIT 1;
+```
+
+![Screenshot_20240415_132609.png](./img/Screenshot_20240415_132609.png)
+
+**Q**: Name the book having longest title?
+
+### MIN and MAX using GROUP BY
+
+**Q:** Find the year each author published their first book?
+
+``` sql
+SELECT author_fname , author_lname , MIN(released_year) AS 'first released' 
+    FROM books 
+    GROUP BY author_lname , author_fname ;
+```
+
+![Screenshot_20240415_134643.png](./img/Screenshot_20240415_134643.png)
+
+### Using SUM
+
+``` sql
+SELECT SUM(pages) FROM books;
+```
+
+![Screenshot_20240415_162113.png](./img/Screenshot_20240415_162113.png)
+
+
+Sum all page each author has written
+
+``` sql
+SELECT author_fname , author_lname , SUM(pages) AS 'total pages' FROM books GROUP BY author_fname , author_lname ;
+``` 
+
+![Screenshot_20240418_125910.png](./img/Screenshot_20240418_125910.png)
+
+### The AVG functions
+
+``` sql
+SELECT AVG(released_year ) FROM books;
+```
+
+![Screenshot_20240418_130308.png](./img/Screenshot_20240418_130308.png)
+
+**Q**: calculate the average stock quantity for books released in the same year 
+
+``` sql
+SELECT released_year , AVG( stock_quantity ) AS 'average sold'  FROM books GROUP BY released_year ;
+``` 
+
+![Screenshot_20240418_130904.png](./img/Screenshot_20240418_130904.png)
+
+Q: print the number of books in the database?
+
+Q: print out how many books released in each year?
+
+Q: print out the total number of books in stock? 
+
+Q: find the average released year by each author?
+
+Q: find the full name of author who wrote a longest book?
+
+Q: print this:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Screenshot_20240418_133953.png](./img/Screenshot_20240418_133953.png)
+
+solution:
+
+``` sql
+-- print the number of books in the database?
+SELECT COUNT(*) FROM books;
+
+-- print out how many books released in each year?
+SELECT released_year , COUNT(*) FROM books GROUP BY released_year ;
+
+-- print out the total number of books in stock? 
+SELECT SUM( stock_quantity ) AS 'Total number of books' FROM books;
+
+-- find the average released year by each author?
+SELECT CONCAT(author_fname , " ", author_lname ) AS 'Author', AVG( released_year ) FROM books GROUP BY author_lname, author_fname;
+
+-- find the full name of author who wrote a longest book?
+SELECT CONCAT(author_fname , author_lname ) AS 'Full name' , pages AS 'big book page no' FROM books WHERE pages= (SELECT MAX(pages) FROM books);
+
+-- last question
+select released_year as year , count(*) as '#books' , AVG(pages) AS 'avg pages' FROM books GROUP BY released_year ;
+```
+
+### DATE, TIME, DATETIME
+- DAY()
+- DAYNAME()
+- DAYOFWEEK()
+- DAYOFYEAR()
+
+### Using CURDATE, CURTIME, NOW
+``` sql
+INSERT INTO people(name, birthdate,  birthtime,birthdt )
+    VALUES('Microwave', CURDATE(), CURTIME(),NOW());
+```
+
+![Screenshot_20240418_153524](./img/Screenshot_20240418_153524.png)
+
+### Formatting DATE
+
+[click here to check the docs](https://www.w3schools.com/sql/func_mysql_date_format.asp)
+``` sql
+SELECT name ,DAY(birthdate) FROM people;
+```
+
+![Screenshot_20240418_160139](./img/Screenshot_20240418_160139.png)
+
+``` sql
+SELECT name ,DAYNAME(birthdate), birthdate FROM people;
+```
+
+![Screenshot_20240418_160356](./img/Screenshot_20240418_160356.png)
+
+``` sql
+SELECT name ,DAYOFWEEK(birthdate), birthdate FROM people;
+```
+
+![Screenshot_20240418_160517](./img/Screenshot_20240418_160517.png)
+
+``` sql
+SELECT name ,DAYOFYEAR(birthdt), birthdt FROM people;
+```
+
+![Screenshot_20240418_162344](./img/Screenshot_20240418_162344.png)
+
+``` sql
+SELECT name , MONTH(birthdate), birthdate FROM people;
+```
+
+![Screenshot_20240418_163445](./img/Screenshot_20240418_163445.png)
+
+``` sql
+SELECT name , MONTHNAME(birthdate), birthdate FROM people;
+```
+
+![Screenshot_20240418_164335](./img/Screenshot_20240418_164335.png)
+
+``` sql
+SELECT name , HOUR(birthtime), birthtime FROM people;
+```
+
+![Screenshot_20240418_164503](./img/Screenshot_20240418_164503.png)
+
+// Using above, do same for MINUTE
+
+**Q**: get 'april 04th 2024'
+
+``` sql
+SELECT name, CONCAT( month(birthdate), " ", DAY(birthdate),"th ", YEAR(birthdate)) AS 'new date' FROM people;
+```
+
+![Screenshot_20240418_175542](./img/Screenshot_20240418_175542.png)
+
+// other examples
+
+``` sql
+SELECT name, DATE_FORMAT(birthdt, '%W %M %Y') FROM people;
+
+-- or 
+-- SELECT name, DATE_FORMAT(birthdt, '%W-%M-%Y') FROM people;
+```
+
+![Screenshot_20240418_175846](./img/Screenshot_20240418_175846.png)
+
+``` sql
+SELECT name, DATE_FORMAT(birthdt, '%D/%c/%Y'), birthdate FROM people;
+```
+
+![Screenshot_20240418_182026](./img/Screenshot_20240418_182026.png)
+
+#### DATEDIFF
+
+``` sql
+SELECT name, birthdate, DATEDIFF(NOW(), birthdt) FROM people;
+```
+
+![Screenshot_20240418_183214](./img/Screenshot_20240418_183214.png)
+
+**TIMESTAMP and DATETIME are used to store date and time values, but they have some differences**:
+
+1. DATETIME stores the date and time value as two separate entities, with a **range of** '0000-01-01 00:00:00' to '9999-12-31 23:59:59'.
+
+2. TIMESTAMP, on the other hand, stores both date and time as a single entity and is typically used to record the time of an event (like when a row was inserted or updated). It has a **range of** '1970-01-01 00:00:01' to '2038-01-19 03:14:07'.
+
+3. **TIMESTAMP can be set to automatically update whenever a change is made to the row, which is not typically the case with DATETIME**.
+
+Remember, the use of these data types can depend on the specific requirements of your database.
+
+**Q**: display current time
+
+**Q**: display current date
+
+**Q**: display current day of week
+
+**Q**: display current day Name?
+
+``` sql
+-- display current time
+SELECT CURRENT_TIME();
+
+-- display current date
+SELECT CURRENT_DATE();
+
+-- display current day of week
+SELECT DAYOFWEEK(CURRENT_DATE());
+
+-- display current day Name?
+SELECT DAYNAME(CURRENT_DATE());
+```
+
+***
+
+### NOT LIKE
+
+Display books with title not start with 'w'
+
+```sql
+SELECT title FROM books WHERE title NOT LIKE 'w%';
+```
+
+
+
 
 
