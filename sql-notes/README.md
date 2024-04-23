@@ -600,6 +600,110 @@ Display books with title not start with 'w'
 SELECT title FROM books WHERE title NOT LIKE 'w%';
 ```
 
+![Screenshot_20240418_191246](./img/Screenshot_20240418_191246.png)
+
+### greter than or lesser than
+
+- also use for greater than or equal to >=
+- also use for greater than or equal to <=
+
+``` sql
+SELECT title, released_year FROM books WHERE released_year > 2000; 
+```
+
+![Screenshot_20240423_132620](./img/Screenshot_20240423_132620.png)
+
+``` sql
+SELECT 99 > 1;
+SELECT 99 < 1;
+```
+
+![Screenshot_20240423_132937](./img/Screenshot_20240423_132937.png)
+
+### logical AND / OR
+
+SELECT book writtn by dave eggars, published after the year 2010
+
+- ### AND
+``` sql
+SELECT title , author_fname , author_lname , released_year FROM books WHERE author_fname = 'Dave' AND author_lname = 'Eggers' AND released_year >= 2010;
+
+-- or 
+
+SELECT title , author_fname , author_lname , released_year FROM books WHERE author_fname = 'Dave' && author_lname = 'Eggers' && released_year >= 2010;
+``` 
+
+![Screenshot_20240423_133946](./img/Screenshot_20240423_133946.png)
+
+- ### OR
+
+``` sql
+SELECT title, author_lname , released_year FROM books WHERE author_lname= 'Eggers' OR released_year > 2010 
+
+-- or
+
+SELECT title, author_lname , released_year FROM books WHERE author_lname= 'Eggers' || released_year > 2010 
+```
+
+![Screenshot_20240423_134936](./img/Screenshot_20240423_134936.png)
+
+### working on BETWEEN
+ - BETWEEN x AND y
+ - **NOT BETWEEN** is also a thing
+
+SELECT all books released between 2004 and 2015
+
+``` sql
+SELECT title, released_year FROM books WHERE released_year >=2004 AND released_year <=2015;
+
+-- OR 
+
+SELECT title , released_year FROM books WHERE released_year BETWEEN 2004 AND 2015;
+```
+
+![Screenshot_20240423_135623](./img/Screenshot_20240423_135623.png)
+
+``` sql
+SELECT title , released_year FROM books WHERE released_year NOT BETWEEN 2004 AND 2015 ORDER BY released_year;
+```
+
+![Screenshot_20240423_160007](./img/Screenshot_20240423_160007.png)
+
+``` sql
+SELECT CAST('2024-04-23' AS DATETIME)
+```
+
+![Screenshot_20240423_160354](./img/Screenshot_20240423_160354.png)
+
+note: retrieve dates as below code
+
+``` sql
+SELECT name, birthdt FROM people WHERE birthdt BETWEEN CAST('1980-01-01' AS DATETIME) AND CAST('2000-01-01' AS DATETIME);
+``` 
+
+Use second output:
+
+![Screenshot_20240423_161158](./img/Screenshot_20240423_161158.png)
+
+
+### IN / NOT IN
+``` sql
+SELECT title, author_lname FROM books WHERE author_lname IN('carver', 'lahiri', 'smith');
+```
+![Screenshot_20240423_161940](./img/Screenshot_20240423_161940.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
