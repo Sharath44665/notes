@@ -693,17 +693,207 @@ SELECT title, author_lname FROM books WHERE author_lname IN('carver', 'lahiri', 
 ![Screenshot_20240423_161940](./img/Screenshot_20240423_161940.png)
 
 
+### CASE statements
+
+``` sql
+SELECT title , released_year ,
+    CASE
+    WHEN released_year >= 2000 THEN 'Modern Lit'
+    ELSE '20th Century Lit'
+    END AS 'Genre'
+    FROM books;
+```
+
+![Screenshot_20240423_205518](./img/Screenshot_20240423_205518.png)
+
+``` sql
+SELECT title , stock_quantity ,
+    CASE
+    WHEN stock_quantity < 50 THEN '*'
+    WHEN stock_quantity < 100 THEN '**'
+    ELSE '***'
+    END AS 'stock stars'
+    FROM books;
+
+-- or
+
+SELECT title , stock_quantity ,
+    CASE
+    WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+    WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+    ELSE '***'
+    END AS 'stock stars'
+    FROM books;
+```
+
+![Screenshot_20240423_205953](./img/Screenshot_20240423_205953.png)
+
+q: Select all books written before 1980 (not inclusive)
+
+q: select all books written by Eggers or Chabon
+
+Q: select all books written by Lahiri, published after 2000
+
+Q: select all books with page count between 100 and 200
+
+Q: select all books where author_lname starts with a 'c' or 's'
+
+q: if title contains 'stories' -> Short stories
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;just kids  and heartbreaking work -> Memoir
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Everything else -> Novel
+
+**q**: make this happen:
+
+![Screenshot_20240423_215854](./img/Screenshot_20240423_215854.png)
+
+``` sql
+-- Select all books written before 1980 (not inclusive)
+SELECT title , released_year FROM books WHERE released_year < 1980;
+
+-- select all books written by Eggers or Chabon
+SELECT title , author_lname FROM books WHERE author_lname = 'Eggers' OR author_lname = 'Chabon';
+
+-- or
+
+SELECT title , author_lname FROM books WHERE author_lname IN ('Eggers','Chabon');
+
+-- select all books written by Lahiri, published after 2000
+SELECT title , author_lname , released_year FROM books WHERE released_year >= 2000 AND author_lname = 'Lahiri';
+
+-- select all books with page count between 100 and 200
+SELECT title , pages FROM books WHERE pages BETWEEN 100 AND 200;
+
+-- select all books where author_lname starts with a 'c' or 's'
+SELECT title , author_lname FROM books  WHERE author_lname LIKE 'c%' OR author_lname LIKE 's%';
+
+-- or
+SELECT title , author_lname FROM books  
+    WHERE SUBSTR(author_lname, 1,1) IN ('c%' ,'s%');
+
+-- if title contains 'stories' -> Short stories...
+SELECT title, author_lname , 
+    CASE
+    WHEN title LIKE '%stories%' THEN 'Short Stories'
+    WHEN title LIKE '%Just Kids%' OR title LIKE 'Heartbreaking work' THEN 'Memoir'
+    ELSE 'Novel'
+    END AS TYPE
+    FROM books;
+```
+``` sql
+-- make this happen:
+SELECT title , author_lname , 
+    CASE 
+    WHEN COUNT(*) > 1 THEN CONCAT(COUNT(*), ' Books')
+    ELSE CONCAT(COUNT(*), ' Book')
+    END as 'COUNT' FROM books GROUP BY author_lname, author_fname ;
+```
+
+***
+
+### working with foreign Key
+
+``` sql
+CREATE TABLE customers(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	first_name VARCHAR(100),
+	last_name VARCHAR(100),
+	email VARCHAR(100)
+);
+
+CREATE TABLE orders(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	order_date DATE,
+	amount DECIMAL,
+	customer_id INT,
+	FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+```
+
+insert respective values.
+
+error on inserting value which doesnot relate to foreign key:
+
+``` sql
+INSERT INTO orders (order_date, amount, customer_id)
+    VALUES ('2016/02/10', 99.99, 55);
+```
 
 
+![Screenshot_20240424_171907](./img/Screenshot_20240424_171907.png)
+
+q: get orders of 'Boy George'
+
+``` sql
+SELECT id, order_date, amount, customer_id FROM orders 
+    where customer_id= (
+        SELECT id FROM customers WHERE first_name='Boy' AND last_name= 'George'
+    );
+```
+
+![Screenshot_20240424_173114](./img/Screenshot_20240424_173114.png)
+
+### Cross join
 
 
+| customers table | orders table |
+| -- | -- |
+| ![Screenshot_20240425_094849](./img/Screenshot_20240425_094849.png) | ![Screenshot_20240425_095251](./img/Screenshot_20240425_095251.png) | 
 
 
+``` sql
+SELECT * FROM customers, orders;
+-- 5*5 (row*row)
+```
+
+### implicit inner join
+
+``` sql
+SELECT * FROM customers, orders WHERE customers.id =  orders.customer_id;
+```
+
+![Screenshot_20240424_174351](./img/Screenshot_20240424_174351.png)
+
+``` sql
+SELECT first_name, last_name, amount, customer_id FROM customers, orders WHERE customers.id = orders.customer_id;
+```
+
+![Screenshot_20240424_174832](./img/Screenshot_20240424_174832.png)
 
 
+### explicit inner join
+
+``` sql
+SELECT * FROM customers 
+    JOIN orders
+    ON customers.id = orders.customer_id;
+```
+
+output will be same as below
+
+![Screenshot_20240424_174351](./img/Screenshot_20240424_174351.png)
+
+``` sql
+SELECT first_name, last_name, amount, customer_id FROM customers
+    JOIN orders
+    ON customers.id = orders.customer_id;
+```
+output will be same as below
+
+![Screenshot_20240424_174832](./img/Screenshot_20240424_174832.png)
 
 
+``` sql
+SELECT first_name, last_name, SUM(amount) as 'total spent', customer_id FROM customers
+    JOIN orders
+    ON customers.id = orders.customer_id
+    GROUP BY orders.customer_id;
+```
 
+![Screenshot_20240424_180612](./img/Screenshot_20240424_180612.png)
+
+### left join
 
 
 
