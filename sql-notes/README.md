@@ -22,7 +22,7 @@ SELECT * FROM cats;
 
 ### Run a file
 ``` sql
-source file_name.sql
+source path/to/file_name.sql
 ```
 ### working with Concat
 ```sql
@@ -791,7 +791,7 @@ SELECT title , author_lname ,
 ```
 
 ***
-
+### ONE TO MANY
 ### working with foreign Key
 
 ``` sql
@@ -889,11 +889,200 @@ SELECT first_name, last_name, SUM(amount) as 'total spent', customer_id FROM cus
     JOIN orders
     ON customers.id = orders.customer_id
     GROUP BY orders.customer_id;
+
+-- Try this:
+SELECT first_name, last_name, SUM(amount) as total_spent, customer_id FROM customers     
+    JOIN orders     
+    ON customers.id = orders.customer_id
+    GROUP BY orders.customer_id 
+    ORDER BY total_spent DESC;
 ```
 
 ![Screenshot_20240424_180612](./img/Screenshot_20240424_180612.png)
 
 ### left join
+
+[see table](#cross-join)
+
+``` sql
+SELECT * FROM customers 
+    LEFT JOIN orders
+    ON customers.id= orders.customer_id;
+```
+![Screenshot_20240425_163349](./img/Screenshot_20240425_163349.png)
+
+``` sql
+SELECT customers.id, first_name , last_name, 
+    IFNULL(SUM(amount),0) AS total_spent 
+    FROM customers 
+    LEFT JOIN orders 
+    ON customers.id = orders.customer_id 
+    GROUP BY customers.id ORDER BY total_spent;
+```
+
+![Screenshot_20240425_165001](./img/Screenshot_20240425_165001.png)
+
+### right join
+
+**Deleting table doesnt work for foreign key constraint:**
+
+![Screenshot_20240425_165924](./img/Screenshot_20240425_165924.png)
+
+> NOTE: in below table, did not added foreign constraint for the demo table
+>
+> see customers_and_orders.sql
+
+| customers_demo | orders_demo |
+| -- | -- |
+| ![Screenshot_20240425_171936](./img/Screenshot_20240425_171936.png) | ![Screenshot_20240425_173315](./img/Screenshot_20240425_173315.png) |
+
+``` sql
+SELECT first_name , last_name , amount , order_date 
+    FROM customers_demo
+    RIGHT JOIN orders_demo
+    ON customers_demo.id=orders_demo.customer_id;
+```
+
+![Screenshot_20240425_174537](./img/Screenshot_20240425_174537.png)
+
+``` sql
+SELECT 
+    IFNULL(first_name,'MISSING') AS first , 
+    IFNULL(last_name,'USER') AS last , 
+    SUM(amount) AS total_spent, customer_id  
+    FROM customers_demo 
+    RIGHT JOIN orders_demo 
+    ON customers_demo.id = orders_demo.customer_id 
+    GROUP BY customer_id;
+```
+
+![Screenshot_20240425_180957](./img/Screenshot_20240425_180957.png)
+
+``` sql
+SELECT
+    IFNULL(first_name,'MISSING') AS first ,
+    IFNULL(last_name,'USER') AS last ,
+    SUM(amount) AS total_spent
+    FROM customers_demo 
+    RIGHT JOIN orders_demo 
+    ON customers_demo.id = orders_demo.customer_id 
+    GROUP BY first_name, last_name;
+```
+
+![Screenshot_20240425_181623](./img/Screenshot_20240425_181623.png)
+
+### On DELETE CASCADE
+
+``` sql
+CREATE TABLE customers_two(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	first_name VARCHAR(100),
+	last_name VARCHAR(100),
+	email VARCHAR(100)
+);
+
+CREATE TABLE orders_two(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	order_date DATE,
+	amount DECIMAL,
+	customer_id INT,
+	FOREIGN KEY (customer_id) REFERENCES customers(id)
+	ON DELETE CASCADE
+);
+```
+![Screenshot_20240425_190648](./img/Screenshot_20240425_190648.png)
+
+``` sql
+DELETE FROM customers_two WHERE first_name = 'Boy';
+
+SELECT * FROM customers_two;
+
+SELECT * FROM orders_two;
+```
+
+![Screenshot_20240425_191030](./img/Screenshot_20240425_191030.png)
+
+| students table | papers table |
+| -- | -- |
+| ![Screenshot_20240426_130653](./img/Screenshot_20240426_130653.png) | ![Screenshot_20240426_130745](./img/Screenshot_20240426_130745.png) |
+
+
+q1. print this:
+
+![Screenshot_20240426_130352](./img/Screenshot_20240426_130352.png)
+
+q2. print this:
+
+![Screenshot_20240426_131123](./img/Screenshot_20240426_131123.png)
+
+q3. print this:
+
+![Screenshot_20240426_131523](./img/Screenshot_20240426_131523.png)
+
+q4. print this:
+
+![Screenshot_20240426_132257](./img/Screenshot_20240426_132257.png)
+
+q5. print this, if average >= 75, then passing, else failing:
+
+![Screenshot_20240426_134038](./img/Screenshot_20240426_134038.png)
+
+``` sql
+-- q1
+SELECT first_name , title, grade 
+    FROM students
+    INNER JOIN papers
+    ON students.id=papers.student_id
+    ORDER BY grade DESC;
+
+-- q2
+SELECT first_name , title, grade
+    FROM students
+    LEFT JOIN papers
+    ON students.id = papers.student_id;
+
+-- q3
+SELECT first_name ,
+    IFNULL(title, 'MISSING') AS title,
+    IFNULL(grade, 0) AS grade
+    FROM students
+    LEFT JOIN papers 
+    ON students.id = papers.student_id;
+
+-- q4
+
+SELECT first_name , 
+    IFNULL(AVG(grade),0) AS 'average' 
+    FROM students 
+    LEFT JOIN papers 
+    ON students.id = papers.student_id 
+    GROUP BY first_name 
+    ORDER BY average DESC;
+
+-- q5
+
+SELECT first_name , 
+    IFNULL(AVG(grade),0) AS average, 
+    CASE 
+    WHEN AVG(grade) >= 75 THEN 'PASSING' 
+    ELSE 'FAILINIG' 
+    END AS passing_status 
+    FROM students 
+    LEFT JOIN papers 
+    ON students.id = papers.student_id 
+    GROUP BY first_name 
+    ORDER BY average DESC;
+```
+***
+### MANY TO MANY
+
+
+
+
+
+
+
+
 
 
 
