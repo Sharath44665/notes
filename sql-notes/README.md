@@ -43,7 +43,7 @@
 
 ## cheat sheat
 
-![sqlCheatsheet.jpeg](./img/sqlCheatsheet.jpeg)
+![sqlCheatsheet](./img/sqlCheatsheet.png)
 
 ### creating Table:
 
