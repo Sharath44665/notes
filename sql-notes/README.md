@@ -1,3 +1,50 @@
+## Index
+- [creating table](#creating-table)
+- [how to run a sql file? ](#run-a-file)
+- [working with concat](#working-with-concat)
+- [working with alias/ fancy heading](#fancy-heading)
+- [substrings](#working-on-substring-or-substr)
+- [replacing](#working-with-replace)
+- [reversing](#working-with-reverse)
+- [length of charecter](#working-with-char_length)
+- [UPPER, lower](#working-with-upper-lower)
+- [distinct](#working-with-distinct)
+- [sorting](#sorting-order-by)
+- [limit](#using-limit)
+- [searching, like](#better-searches-using-like)
+  - [not like](#not-like)
+- [aggregate functions](#aggregate-functions)
+  - [count](#count)
+  - [min, max](#using-min-and-max)
+  - [min max group by](#min-and-max-using-group-by)
+  - [sum](#using-sum)
+  - [average](#the-avg-functions)
+- [subquery](#subquery)
+- [date time ](#date-time-datetime)
+  - [curdate](#using-curdate-curtime-now)
+  - [formatting date](#formatting-date)
+  - [date difference](#datediff)
+- [greater than, lesser than](#greter-than-or-lesser-than)
+- [AND OR](#logical-and--or)
+- [BETWEEN](#working-on-between)
+- [type conversion using cast](#type-conversion-using-cast)
+- [in not in](#in--not-in)
+- [case statements](#case-statements)
+- [one to many](#one-to-many)
+  - [foreign key](#working-with-foreign-key)
+  - [cross join](#cross-join)
+  - [implicit inner join](#implicit-inner-join)
+  - [explicit inner join - recommended ](#explicit-inner-join)
+  - [left join](#left-join)
+  - [right join](#right-join)
+  - [on delete cascade](#on-delete-cascade)
+- [many to many](#many-to-many)
+- [having](#using-having2)
+
+## cheat sheat
+
+![sqlCheatsheet.jpeg](./img/sqlCheatsheet.jpeg)
+
 ### creating Table:
 
 ``` sql
@@ -28,21 +75,20 @@ source path/to/file_name.sql
 ```sql
 SELECT CONCAT("Hello", "World") 
 ```
-output:
 
 ![~/Downloads/Screenshot_20240413_144638.png](./img/Screenshot_20240413_144638.png)
 
 ``` sql
 select author_fname, author_lname FROM books;
 ```
-output:
+
 ![Screenshot_20240413_144216](./img/Screenshot_20240413_144216.png)
 
 ``` sql
 SELECT CONCAT(author_fname, " ", author_lname) FROM books; 
 ```
 
-output:
+
 ![~/Downloads/Screenshot_20240413_145113.png](./img/Screenshot_20240413_145113.png)
 
 #### fancy heading
@@ -50,7 +96,7 @@ output:
 SELECT CONCAT(author_fname, " ", author_lname) AS 'Full name' FROM books; 
 ```
 
-output:
+
 ![~/Downloads/Screenshot_20240413_145520.png](./img/Screenshot_20240413_145520.png)
 
 ``` sql
@@ -59,7 +105,7 @@ SELECT author_fname AS first,
 	CONCAT(author_fname, " ", author_lname) AS 'Full name' FROM books;
 ```
 
-output:
+
 ![~/Downloads/Screenshot_20240413_150407.png](./img/Screenshot_20240413_150407.png)
 
 #### CONCAT_WS:
@@ -67,7 +113,7 @@ output:
 SELECT CONCAT_WS(" - ",title,author_fname,author_lname) AS 'Title - first - last' FROM books;
 ```
 
-output:
+
 ![~/Downloads/Screenshot_20240413_151722.png](./img/Screenshot_20240413_151722.png)
 
 ### working on SUBSTRING or SUBSTR
@@ -76,7 +122,7 @@ output:
 SELECT SUBSTRING('Hello world ', 1, 4 ) AS demo;
 ```
 
-output:
+
 ![~/Downloads/Screenshot_20240413_152340.png](./img/Screenshot_20240413_152340.png)
 
 ``` sql
@@ -95,6 +141,7 @@ SELECT SUBSTRING(title, 1, 10) AS 'Substring of title' FROM books;
 ```
 
 O/p:
+
 ![Screenshot_20240413_153601](./img/Screenshot_20240413_153601.png)
 
 ``` sql
@@ -104,6 +151,7 @@ SELECT CONCAT(
 ```
 
 O/p:
+
 ![Screenshot_20240413_154213](./img/Screenshot_20240413_154213.png)
 
 ### working with REPLACE
@@ -130,13 +178,13 @@ SELECT REPLACE(title, "e", "3") AS 'title Replace e with 3' FROM books;
 ![Screenshot_20240413_160025.png](./img/Screenshot_20240413_160025.png)
 
 
-### woring with REVERSE
+### working with REVERSE
 ``` sql
 SELECT REVERSE('Hello World') AS demo;
 ``` 
 ![Screenshot_20240413_160429.png](./img/Screenshot_20240413_160429.png)
 
-### woring with CHAR_LENGTH
+### working with CHAR_LENGTH
 
 ``` sql
 SELECT CHAR_LENGTH('Hello world') AS demo;
@@ -550,7 +598,7 @@ SELECT name, DATE_FORMAT(birthdt, '%D/%c/%Y'), birthdate FROM people;
 
 ![Screenshot_20240418_182026](./img/Screenshot_20240418_182026.png)
 
-#### DATEDIFF
+### DATEDIFF
 
 ``` sql
 SELECT name, birthdate, DATEDIFF(NOW(), birthdt) FROM people;
@@ -668,6 +716,8 @@ SELECT title , released_year FROM books WHERE released_year NOT BETWEEN 2004 AND
 ```
 
 ![Screenshot_20240423_160007](./img/Screenshot_20240423_160007.png)
+
+### Type conversion using CAST
 
 ``` sql
 SELECT CAST('2024-04-23' AS DATETIME)
@@ -1076,8 +1126,207 @@ SELECT first_name ,
 ***
 ### MANY TO MANY
 
+| series table | reviewers table | reviews table |
+| -- | -- | -- |
+| ![Screenshot_20240428_122145](./img/Screenshot_20240428_122145.png) | ![Screenshot_20240428_122415](./img/Screenshot_20240428_122415.png) | ![Screenshot_20240428_122620](./img/Screenshot_20240428_122620.png) |
+
+challenges: 
+1. print this:
+
+![Screenshot_20240428_124458](./img/Screenshot_20240428_124458.png)
+``` sql
+SELECT title, rating  
+    FROM series  
+    INNER JOIN reviews 
+    ON series.id = reviews.series_id LIMIT 15;
+```
+
+2. do this 
+
+ ![Screenshot_20240428_125637](./img/Screenshot_20240428_125637.png)
+
+``` sql
+SELECT title, 
+    AVG(rating) as avg_rating 
+    FROM series INNER JOIN reviews  
+    ON series.id = reviews.series_id 
+    GROUP BY title 
+    ORDER BY avg_rating;
+```
+3. do this
+
+![Screenshot_20240428_130512](./img/Screenshot_20240428_130512.png)
+
+``` sql
+SELECT first_name, last_name , rating  FROM reviewers  INNER JOIN reviews ON reviewers.id = reviews.reviewer_id;
+```
+
+4. show not reviewd series like this
+
+![Screenshot_20240428_131228](./img/Screenshot_20240428_131228.png)
+
+``` sql
+SELECT title as unreviewed_series 
+    FROM series 
+    LEFT JOIN reviews ON series.id = reviews.series_id 
+    WHERE reviews.series_id IS NULL;
+
+-- OR
+SELECT title as unreviewed_series FROM series
+    WHERE id NOT IN (select DISTINCT series_id FROM reviews);
+```
+
+5. print this (if possible make use of round - google it)
+
+![Screenshot_20240428_132943](./img/Screenshot_20240428_132943.png)
+
+``` sql
+SELECT genre , AVG(rating) AS avg_rating
+    FROM series
+    INNER JOIN reviews 
+    ON series.id = reviews.series_id
+    GROUP BY genre ;
+```
+
+6. print this
+
+![Screenshot_20240428_143141](./img/Screenshot_20240428_143141.png)
+
+``` sql
+SELECT first_name , last_name , 
+	COUNT(*) AS 'COUNT',
+	IFNULL(MIN(rating),0) AS 'MIN', 
+	IFNULL(MAX(rating),0) AS 'MAX',
+	IFNULL(AVG(rating),0) AS 'AVG',
+	CASE
+	WHEN rating IS NULL THEN 'INACTIVE'
+	ELSE 'ACTIVE'
+	END AS 'STATUS'
+	FROM reviewers
+	LEFT JOIN reviews ON reviewers.id = reviews.reviewer_id 
+	GROUP BY first_name, last_name;
+
+-- or 
+SELECT first_name , last_name , 
+	COUNT(*) AS 'COUNT',
+	IFNULL(MIN(rating),0) AS 'MIN', 
+	IFNULL(MAX(rating),0) AS 'MAX',
+	IFNULL(AVG(rating),0) AS 'AVG',
+	CASE
+	WHEN 'COUNT' = 1 THEN 'INACTIVE'
+	ELSE 'ACTIVE'
+	END AS 'STATUS'
+	FROM reviewers
+	LEFT JOIN reviews ON reviewers.id = reviews.reviewer_id 
+	GROUP BY first_name, last_name;
+```
+
+7. print this and sort by title
+
+![Screenshot_20240428_154225](./img/Screenshot_20240428_154225.png)
+
+``` sql
+SELECT title, rating,  
+    CONCAT(first_name , ' ', last_name ) AS reviewer  
+    FROM series  
+    INNER JOIN reviews ON series.id = reviews.series_id 
+    INNER JOIN reviewers ON reviewers.id= reviews.reviewer_id 
+    ORDER BY title;
+```
+***
+ ### challenges
+ 1. find the 5 oldest users?
+
+ ``` sql
+ SELECT username, created_at FROM users ORDER BY created_at LIMIT 5;
+```
+![Screenshot_20240428_215401](./img/Screenshot_20240428_215401.png)
+
+2. What day of week do most users register on?
+
+we need to figure out when to schedule an ad compaign.
+
+``` sql
+SELECT DAYNAME(created_at) AS day, COUNT(*) AS counts
+    FROM users
+    GROUP BY day
+    ORDER BY counts DESC LIMIT 1;
+```
+
+![Screenshot_20240429_105114](./img/Screenshot_20240429_105114.png)
+
+3. we want to target our inactive users with an email campaign
+
+find out the users who are not active or never posted the photo 
+
+``` sql
+SELECT username FROM users LEFT JOIN photos ON users.id = photos.user_id WHERE photos.created_at IS NULL;
+```
+![Screenshot_20240429_105918](./img/Screenshot_20240429_105918.png)
+
+4. we are running a new contest to see who get the most likes on a single photo.
+
+who won???
+
+``` sql
+-- below one is right
+SELECT username,  photos.id as photo_id, 
+    COUNT(*) AS photo_likes 
+    FROM photos 
+        INNER JOIN likes ON photos.id = likes.photo_id 
+        INNER JOIN users ON users.id = photos.user_id
+    GROUP BY likes.photo_id 
+    ORDER BY photo_likes DESC LIMIT 1;
+
+-- below one is wrong
+SELECT username,  photos.id as photo_id, 
+    COUNT(*) AS photo_likes 
+    FROM photos 
+        INNER JOIN likes ON photos.id = likes.photo_id
+        INNER JOIN users ON users.id = likes.user_id 
+    GROUP BY likes.photo_id 
+    ORDER BY photo_likes DESC LIMIT 1;
+```
+![who get the most likes on a single photo.](./img/Screenshot_20240429_111639.png)
 
 
+
+5. how many times does the average user posts?
+
+``` sql
+SELECT((SELECT COUNT(*) FROM photos)/ (SELECT COUNT(*) FROM users )) as avg_photos_per_user; 
+```
+
+![average user posts](./img/Screenshot_20240429_112843.png)
+
+6. a brand wants to know which hash tags to use in a post?
+
+what are the top 5 most commonly used hash tags?
+
+``` sql
+SELECT tag_name, COUNT(*) AS count_total 
+    FROM photo_tags
+    INNER JOIN tags
+    ON tags.id =  photo_tags.tag_id GROUP BY tag_id ORDER BY count_total DESC LIMIT 5;
+```
+
+![commonly used hash tags](./img/Screenshot_20240429_114111.png)
+
+7. we have small problem with bots on our site. 
+
+logic: find the users who have liked every single photo on the site
+
+### using HAVING
+
+``` sql
+SELECT username, count(*) AS photo_likes
+    FROM users
+    INNER JOIN likes ON users.id = likes.user_id
+    GROUP BY user_id
+    HAVING photo_likes = (SELECT COUNT(*) FROM photos);
+```
+
+![having use](./img/Screenshot_20240429_121303.png)
 
 
 
