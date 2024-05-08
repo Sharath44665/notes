@@ -11,6 +11,19 @@ starting:
    - working on props (properties)
    - exporting js
 
+4. create animals project:
+    - [work on events](https://github.com/Sharath44665/react_workspace/tree/main/work_on_event)
+    - [work on states](https://github.com/Sharath44665/react_workspace/tree/main/work_on_use_state) 
+
+        ``` js
+        console.log(useState(0));
+        ```
+
+        ![useState(0)](./img/Screenshot_20240505_131438.png)
+    - [work on animals project](https://github.com/Sharath44665/react_workspace/tree/main/animals)
+
+       ![image show animals](./img/Screenshot_20240508_125937.png)
+
 
    
   
