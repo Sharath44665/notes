@@ -69,3 +69,62 @@ print(namesOf4char) # ['Ada', 'Remy', 'Alex', 'Lian']
 
 [Screencast_20240509_171612.webm](https://github.com/Sharath44665/notes/assets/66732823/902f0e38-1bfa-4548-b586-cf7ce76a48bc)
 
+
+- args, kwargs
+   - [tkinter basics](https://github.com/Sharath44665/pythonWorkSpace/tree/main/basics-tkinter)
+   - [miles to km project](https://github.com/Sharath44665/pythonWorkSpace/tree/main/miles-to-km-converter)
+
+
+``` py
+# args:
+
+def add(*args):
+    sum = 0
+    for val in args:
+        sum += val
+
+    print(sum)
+
+add(3,4,10) # 17
+
+# -------------------------
+# kwargs:
+
+def calculate(**kwargs): # kwargs = Key Word Arguments
+    # print(kwargs) # {'add': [1, 2], 'multiply': (2, 3, 4)}
+    sum = 0
+    answer = 1
+    for key,value in kwargs.items():
+
+        if key == "add":
+            for val in value:
+                sum += val
+
+        if key == "multiply":
+            for val in value:
+                answer *= val
+    return [sum, answer]
+
+answer = calculate(add= [1,2])
+print(answer) # [3,1] = [sum, answer]
+answer = calculate(multiply= [1,2])
+print(answer) # [0,2] = = [sum, answer]
+
+# ----------
+# excercise
+
+class Car:
+    def __init__(self, **kwargs):
+        self.color = kwargs.get("color")  # getting from dictionary
+        self.model = kwargs.get("model")  # if you dont pass model, then it will return None
+
+
+carOne = Car(color="blue", model="audi")
+print(carOne.color) # blue
+print(carOne.model) # audi
+carTwo = Car(model="innova")
+print(carTwo.color) # None
+print(carTwo.model) # innova
+```
+- pomodoro game
+
