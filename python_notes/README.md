@@ -66,7 +66,9 @@ names = ["Ada", "Remy", "Kylen", "Alex", "Tristan", "Lian", "Jayleen","Trace"]
 namesOf4char = [newName for newName in names if len(newName) < 5]
 print(namesOf4char) # ['Ada', 'Remy', 'Alex', 'Lian']
 ```
-![NATO.webm](./videos/NATO.webm)
+<video width="320" height="240" controls>
+  <source src="./videos/NATO.webm" type="video/webm">
+</video>
 
 
 
