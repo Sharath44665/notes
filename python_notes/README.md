@@ -130,4 +130,106 @@ print(carTwo.model) # innova
   
 [Screencast_20240509_201943.webm](https://github.com/Sharath44665/notes/assets/66732823/a8da7fdc-f42f-4a9c-a8c6-23db9e395e9c)
 
+- password manager
+
+| 1 ![firstImg](./img/Screenshot_20240509_203347.png) | 2 ![secondImg](./img/Screenshot_20240509_203501.png) |
+| --- | --- |
+| 3 ![third img](./img/Screenshot_20240509_203550.png) | No img |
+
+- try catch basics:
+
+``` py
+try:
+    with open("some.txt") as myFile:
+        myFile.read()
+except:
+    print("something went wrong")
+
+# something went wrong
+
+try:
+    with open("data.txt") as dataFile:
+        pass
+    mydict ={"a": "apple"}
+    print(mydict["b"])
+except FileNotFoundError: # if no file, create file
+    print("file not found, so file is created") 
+    with open("data.txt", mode="w") as myFile:
+        pass
+except KeyError: # if no key found, print the following
+    print("Hey that key not found")
+
+# ---- important ---
+try:
+    with open("data.txt") as dataFile:
+        pass
+    mydict ={"a": "apple"}
+    print(mydict["b"])
+    print(mydict["a"])
+except FileNotFoundError:
+    print("file not found, so file is created")
+    with open("data.txt", mode="w") as myFile:
+        myFile.write("Hello, this is something")
+        pass
+except KeyError as errorMsg: # errorMsg is not key word, its just a variable, can name anything you want
+    print(f"Hey, that key: {errorMsg} not found") # Hey, that key: 'b' not found
+
+else: # optional
+    # if there is exception following code NOT WORK
+    # if there is no exceptions following code will execute
+    with open("data.txt") as myFile:
+        content = myFile.read()
+        print(content)
+
+finally: # optional, prints the following no matter what
+    print("this prints finally")
+```
+
+``` py
+# raise exception example 1
+try:
+    with open("data.txt") as dataFile:
+        pass
+    mydict = {"a": "apple"}
+    # print(mydict["b"])
+    print(mydict["a"])
+except FileNotFoundError:
+    print("file not found, so file is created")
+    with open("data.txt", mode="w") as myFile:
+        myFile.write("Hello, this is something")
+        pass
+except KeyError as errorMsg:  # errorMsg is not key word, its just a variable, can name anything you want
+    print(f"Hey, that key: {errorMsg} not found")
+
+else:  # optional
+    # if there is exception following code not work
+    # if there is no exceptions following code will execute
+    with open("data.txt") as myFile:
+        content = myFile.read()
+        print(content)
+
+finally:  # optional
+    # print("this prints finally")
+    raise IndexError("index error has been raised by me") 
+```
+
+output:
+
+![Screenshot_20240509_211738.png](./img/Screenshot_20240509_211738.png)
+
+``` py
+# raise exception example 2
+height = float(input("Enter Hieght: "))
+weight = int(input("Enter weight: "))
+
+if height >3:
+    raise ValueError("Human height should not be greater than 3 meters")
+bmi = weight/(height*height)
+print(bmi)
+```
+output
+
+![Screenshot_20240509_212419.png](./img/Screenshot_20240509_212419.png)
+
+
 
