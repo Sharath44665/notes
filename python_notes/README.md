@@ -67,5 +67,5 @@ namesOf4char = [newName for newName in names if len(newName) < 5]
 print(namesOf4char) # ['Ada', 'Remy', 'Alex', 'Lian']
 ```
 
-
+[Screencast_20240509_171612.webm](https://github.com/Sharath44665/notes/assets/66732823/902f0e38-1bfa-4548-b586-cf7ce76a48bc)
 
