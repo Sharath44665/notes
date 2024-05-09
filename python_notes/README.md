@@ -127,4 +127,7 @@ print(carTwo.color) # None
 print(carTwo.model) # innova
 ```
 - pomodoro game
+  
+[Screencast_20240509_201943.webm](https://github.com/Sharath44665/notes/assets/66732823/a8da7fdc-f42f-4a9c-a8c6-23db9e395e9c)
+
 
