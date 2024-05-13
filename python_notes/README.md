@@ -387,6 +387,8 @@ decoratedFunction() # executes after 2 seconds with output 2 times of function
 
 | ![image one](./img/imageOneScreenshot_20240513_183807.png) | ![imageTwo](./img/imageTwoScreenshot_20240513_183858.png) |
 | -- | -- |
-| ![image 3](./img/image3Screenshot_20240513_183954.png) | ![image 4](./img/image4Screenshot_20240513_184020.png)
+| ![image 3](./img/image3Screenshot_20240513_183954.png) | ![image 4](./img/image4Screenshot_20240513_184020.png) |
 
-[video](./assets/Screencast_20240513_191039.webm)
+<video width="320" height="240" controls>
+  <source src="Screencast_20240513_191039.webm" type="video/webm">
+</video>
