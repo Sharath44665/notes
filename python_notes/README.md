@@ -389,4 +389,4 @@ decoratedFunction() # executes after 2 seconds with output 2 times of function
 | -- | -- |
 | ![image 3](./img/image3Screenshot_20240513_183954.png) | ![image 4](./img/image4Screenshot_20240513_184020.png)
 
-[video](https://github.com/Sharath44665/notes/assets/Screencast_20240513_191039.webm)
+[video](./assets/Screencast_20240513_191039.webm)
