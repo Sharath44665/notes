@@ -344,6 +344,8 @@ print(timeNow.hour)
    - [advaced decorators(args, kwargs)](https://github.com/Sharath44665/pythonWorkSpace/tree/main/advanced-decorators)
    - [higher lower](https://github.com/Sharath44665/pythonWorkSpace/tree/main/higher-lower-flask)
    - [rendering template html and static file](https://github.com/Sharath44665/pythonWorkSpace/tree/main/my-personal-site-flask)
+   - [rendering dynamic content - agify api, genderize api jinja usage](https://github.com/Sharath44665/pythonWorkSpace/tree/main/dynamic-html-pages-flask)
+   [show preview](#rendering-dynamic-content---agify-api-genderize-api-jinja-usage)
 
 
 ``` py
@@ -379,3 +381,12 @@ decoratedFunction = delayDecorator(sayGreetings) # applying decorator to the fun
 print(decoratedFunction) # <function delayDecorator.<locals>.wrapperFunction at 0x7d78346dcfe0>
 decoratedFunction() # executes after 2 seconds with output 2 times of function
 ```
+
+
+#### rendering dynamic content - agify api, genderize api jinja usage
+
+| ![image one](./img/imageOneScreenshot_20240513_183807.png) | ![imageTwo](./img/imageTwoScreenshot_20240513_183858.png) |
+| -- | -- |
+| ![image 3](./img/image3Screenshot_20240513_183954.png) | ![image 4](./img/image4Screenshot_20240513_184020.png)
+
+[video](https://github.com/Sharath44665/notes/assets/Screencast_20240513_191039.webm)
