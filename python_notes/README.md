@@ -346,6 +346,17 @@ print(timeNow.hour)
    - [rendering template html and static file](https://github.com/Sharath44665/pythonWorkSpace/tree/main/my-personal-site-flask)
    - [rendering dynamic content - agify api, genderize api jinja usage](https://github.com/Sharath44665/pythonWorkSpace/tree/main/dynamic-html-pages-flask)
    [show preview](#rendering-dynamic-content---agify-api-genderize-api-jinja-usage)
+   - [Blog capstone #using previous point](https://github.com/Sharath44665/pythonWorkSpace/tree/main/blog-start-flask) [#show_preview](#capstone-project-click-on-read)
+   - [Blog capstone upgrade](https://github.com/Sharath44665/pythonWorkSpace/tree/main/blog-upgrade-flask) [#preview](#capstone-project-upgrade)
+      >add more style, use that template in other html pages
+      >
+      > - click on contacts -> fill the form -> send -> which should send mail
+      >
+      > - if soemthing went wrong in above step, show the error.html page
+      >
+      > - fetch the fake data from api and render it to blog post
+      
+
 
 
 ``` py
@@ -389,4 +400,47 @@ decoratedFunction() # executes after 2 seconds with output 2 times of function
 | -- | -- |
 | ![image 3](./img/image3Screenshot_20240513_183954.png) | ![image 4](./img/image4Screenshot_20240513_184020.png) |
 
-[dfsafsdjljfa](https://github.com/Sharath44665/notes/blob/main/python_notes/Screencast_20240513_191039.webm)
+#### capstone project (click on Read):
+
+| ![image one](./img/image1Screenshot_20240514_150052.png) | ![imageTwo](./img/image2Screenshot_20240514_150119.png) |
+| -- | -- |
+| ![image 3](./img/image3Screenshot_20240514_150146.png) | ![image 4](./img/image4Screenshot_20240514_150203.png) |
+
+
+#### capstone project Upgrade: 
+
+<table>
+<tr>
+<td> 
+
+![img1](./img/image1Screenshot_20240514_165617.png) 
+</td>
+<td>
+
+![img2](./img/img2Screenshot_20240514_165717.png)
+</td>
+<td colspan=2>
+
+![img3](./img/img3Screenshot_20240514_165806.png) 
+</td>
+</tr>
+<tr>
+<td>
+
+![img4](./img/img4Screenshot_20240514_165900.png)
+</td>
+<td>
+
+![img5](./img/img5anotherimage.png)
+</td>
+<td>
+
+![img6](./img/img6Screenshot_20240514_170331.png)
+</td>
+<td>
+
+![img7](./img/img7Screenshot_20240514_170934.png)
+</td>
+</tr>
+</table>
+
