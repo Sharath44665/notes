@@ -348,6 +348,7 @@ print(timeNow.hour)
    [show preview](#rendering-dynamic-content---agify-api-genderize-api-jinja-usage)
    - [Blog capstone #using previous point](https://github.com/Sharath44665/pythonWorkSpace/tree/main/blog-start-flask) [#show_preview](#capstone-project-click-on-read)
    - [Blog capstone upgrade](https://github.com/Sharath44665/pythonWorkSpace/tree/main/blog-upgrade-flask) [#preview](#capstone-project-upgrade)
+
       >add more style, use that template in other html pages
       >
       > - click on contacts -> fill the form -> send -> which should send mail
@@ -356,8 +357,7 @@ print(timeNow.hour)
       >
       > - fetch the fake data from api and render it to blog post
       
-
-
+   
 
 ``` py
 # work on decorators
@@ -392,7 +392,103 @@ decoratedFunction = delayDecorator(sayGreetings) # applying decorator to the fun
 print(decoratedFunction) # <function delayDecorator.<locals>.wrapperFunction at 0x7d78346dcfe0>
 decoratedFunction() # executes after 2 seconds with output 2 times of function
 ```
+- Flask WTForm # google for Quick start
+   - [basics](https://github.com/Sharath44665/pythonWorkSpace/tree/main/files-flask-secrets) #[preview](#basics-of-wtform)
 
+     > Install email validator `pip install email_validator`, `pip install bootstrap-flask`
+     >
+     > check the documentation -> [click here](https://wtforms.readthedocs.io/en/master/)
+   - work on custom validator # [preview and code](#add-custom-validator-preview)
+   - [coffee and wifi](https://github.com/Sharath44665/pythonWorkSpace/tree/main/coffee-and-wifi)
+
+      > add home page
+      >
+      > on succesful submit, whatever entered in the form should be added to `.csv` file and show updated `cafes.html`
+      >
+      > on succesful submit
+    
+      [see preview](#coffee-and-wifi-preview)
+
+- Flask SQLAlchemy
+   - [SQLite add, delete, update, read in flask Sql Alchemy](https://github.com/Sharath44665/pythonWorkSpace/tree/main/library-project) see the code below 👇 [preview]()
+
+``` py
+app = Flask(__name__)
+all_books = []
+
+class Base(DeclarativeBase):
+    pass
+
+
+db = SQLAlchemy(model_class=Base)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///new-books-collection.db"
+db.init_app(app)
+
+
+class Book(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    title: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+    author: Mapped[str] = mapped_column(String, nullable=False)
+    rating: Mapped[float] = mapped_column(Float, nullable=False)
+
+with app.app_context():
+    db.create_all()
+
+@app.route("/add", methods=["POST", "GET"])
+def add():
+    if request.method == "POST":
+        # get data from html form
+        book = Book(
+            title=request.form["book-name"],
+            author=request.form["book-author"],
+            rating=float(request.form["rating"])
+
+        )
+        db.session.add(book)
+        db.session.commit() # adding to database
+        return redirect(url_for('home'))
+
+    return render_template("add.html")
+
+@app.route('/')
+def home():
+    all_books = db.session.execute(db.select(Book)).scalars()
+    all_books = list(all_books.all())
+
+    # index.html should have the read from 
+    return render_template("index.html", books=all_books)
+
+@app.route("/edit", methods=["GET", "POST"])
+def editRating():
+    with app.app_context():
+        editBook = db.session.execute(db.select(Book).where(Book.id == request.args.get("id"))).scalar()
+        if request.method == "POST":
+            editBook.rating = float(request.form["changeRating"])
+            db.session.commit()
+            return redirect(url_for('home'))
+
+    return render_template("edit.html", editBook=editBook)
+
+@app.route("/delete", methods=["GET","POST"])
+def deleteRow():
+
+    if request.method == "GET":
+        # print(request.args.get("id"))
+        with app.app_context():
+            bookDelete = db.session.execute(db.select(Book).where(Book.id == request.args.get("id"))).scalar()
+            db.session.delete(bookDelete)
+            db.session.commit()
+            return redirect(url_for('home'))
+
+    # return render_template("index.html")
+    return redirect(url_for('home'))
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+   - [add, delete, update, read in flask Sql Alchemy]
+***
 
 #### rendering dynamic content - agify api, genderize api jinja usage
 
@@ -400,12 +496,17 @@ decoratedFunction() # executes after 2 seconds with output 2 times of function
 | -- | -- |
 | ![image 3](./img/image3Screenshot_20240513_183954.png) | ![image 4](./img/image4Screenshot_20240513_184020.png) |
 
+
+***
+
 #### capstone project (click on Read):
 
 | ![image one](./img/image1Screenshot_20240514_150052.png) | ![imageTwo](./img/image2Screenshot_20240514_150119.png) |
 | -- | -- |
 | ![image 3](./img/image3Screenshot_20240514_150146.png) | ![image 4](./img/image4Screenshot_20240514_150203.png) |
 
+
+***
 
 #### capstone project Upgrade: 
 
@@ -444,3 +545,105 @@ decoratedFunction() # executes after 2 seconds with output 2 times of function
 </tr>
 </table>
 
+***
+
+### Basics of WTForm
+<table>
+<tr>
+<td>
+
+![img1](./img/img1Screenshot_20240516_124411.png)   
+</td>
+<td>
+
+![img2](./img/img2Screenshot_20240516_124452.png)
+</td>
+<td>
+
+![img3](./img/img3Screenshot_20240516_123452.png)
+</td>
+
+</tr>
+<tr>
+<td>
+
+![img4](./img/img4Screenshot_20240516_124616.png)
+</td>
+<td>
+
+![img5](./img/img5Screenshot_20240516_124804.png)
+</td>
+<td>
+
+![img6](./img/img6Screenshot_20240516_124900.png)
+</td>
+</tr>
+<tr>
+<td colspan=2>
+
+![img7](./img/img7Screenshot_20240516_125043.png)
+</td>
+<td>
+
+![img8](./img/img8Screenshot_20240516_125109.png)
+</td>
+</tr>
+</table>
+
+***
+
+#### add custom validator preview:
+![img1](./img/img1Screenshot_20240516_134633.png)
+
+***
+
+#### coffee and wifi preview:
+
+| ![img1](./img/img1Screenshot_20240516_135231.png) | ![img2](./img/img2Screenshot_20240516_135322.png) |
+| -- | -- |
+| ![img3](./img/img3Screenshot_20240516_140009.png) | ![img4](./img/img4Screenshot_20240516_140116.png) |
+
+***
+
+#### SQLite add, delete, update, read preview
+
+<table>
+<tr>
+<td>
+
+![img1](./img/img1Screenshot_20240516_152433.png)
+</td>
+<td>
+
+![img2](./img/img2Screenshot_20240516_152530.png)
+</td>
+<td>
+
+![img3](./img/img3Screenshot_20240516_152609.png)
+</td>
+</tr>
+<tr>
+<td>
+
+![img4](./img/img4Screenshot_20240516_152947.png)
+</td>
+<td>
+
+![img5](./img/img5Screenshot_20240516_153028.png)
+</td>
+<td>
+
+![img6](./img/img6Screenshot_20240516_153059.png)
+</td>
+</tr>
+<tr>
+<td>
+
+![img7](./img/img7Screenshot_20240516_153158.png)
+</td>
+<td colspan=2>
+
+![img8](./img/img8Screenshot_20240516_153246.png)
+</td>
+</tr>
+</table>
