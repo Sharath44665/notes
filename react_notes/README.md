@@ -24,6 +24,9 @@ starting:
 
        ![image show animals](./img/Screenshot_20240508_125937.png)
 
+5. Search images using unsplash api
+   - [install axios to make api requests #see preview]() # not added link
+
 
    
   
