@@ -224,8 +224,12 @@ The interface in Java is a mechanism to achieve abstraction
 > ThrowDemo, UserDefinedExceptioinDemo
 
 #### ArrayList
-> ArrayListDemo, IteratorDemo, ForEachDemo, SetArrayListDemo, TraversingArrayLIstDemo, StudentDemoAL <-> UserDefinedAL
+> ArrayListDemo, ArrayListDemo2, IteratorDemo, ForEachDemo, SetArrayListDemo, TraversingArrayLIstDemo, StudentDemoAL <-> UserDefinedAL
 
+#### Create Table
+attach video how to add class path in vs code
+
+> ConnectJavaToMariaDBDemo
 
 
 
