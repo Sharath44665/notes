@@ -1,6 +1,24 @@
 #### OSI model vs TCP/IP MOdel:
 ![osimodelvsTciModel](./imgOne/osiTCPModelGOyhGNPXEAAjz17.jpeg)
 
+#### When should gateway load balancer is used
+A Gateway Load Balancer (GWLB) is a managed service offered by Amazon Web Services (AWS) that enables you to deploy, scale, and manage `third-party virtual appliances, such as` firewalls, intrusion detection and prevention systems, and deep packet inspection systems. Here are some scenarios where you should consider using a Gateway Load Balancer:
+
+**Multi-VPC Environment**: When you have multiple VPCs and need to connect them securely, a Gateway Load Balancer can help you achieve this by providing `private connectivity between virtual appliances` in the service provider VPC and application servers in the service consumer VPC.
+
+**Third-Party Virtual Appliances**: If you’re using third-party virtual appliances, a Gateway Load Balancer can help you deploy, scale, and manage them more efficiently. You can register these appliances with a target group and route traffic to them through the Gateway Load Balancer.
+
+**Network Security**: A Gateway Load Balancer can help you `strengthen your network` security by routing traffic to healthy virtual appliances and rerouting traffic away `from failing ones`. This can help reduce administrative costs and ensure consistent policy enforcement across your appliances.
+
+**Scalability and High Availability**: When you need to scale your virtual appliances to meet increasing traffic demands or ensure high availability, a Gateway Load Balancer can help you achieve this by automatically scaling your appliances up or down based on demand.
+
+**Centralized Management**: With a Gateway Load Balancer, you can centralize traffic management and policy enforcement across your virtual appliances, making it easier to manage your network and reduce administrative overhead.
+
+**Private Connectivity**: A Gateway Load Balancer provides private connectivity between virtual appliances and application servers, ensuring that your traffic remains private and secure.
+
+**Integration with AWS Services**: A Gateway Load Balancer can be integrated with other AWS services, such as AWS Auto Scaling, to provide a more comprehensive solution for managing your virtual appliances.
+In summary, a Gateway Load Balancer is a valuable tool for organizations that need to deploy, scale, and manage third-party virtual appliances, particularly in multi-VPC environments, to ensure network security, scalability, and high availability.
+
 # aws-dev-docs
 ## What is Amazon EKS?
 Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service that **eliminates the need to install, operate, and maintain your own Kubernetes control plane on Amazon Web Services (AWS).** Kubernetes is an `open-source system that automates the management, scaling, and deployment of containerized applications`.
