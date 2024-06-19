@@ -1,3 +1,6 @@
+#### OSI model vs TCP/IP MOdel:
+![osimodelvsTciModel](./imgOne/osiTCPModelGOyhGNPXEAAjz17.jpeg)
+
 # aws-dev-docs
 ## What is Amazon EKS?
 Amazon Elastic Kubernetes Service (Amazon EKS) is a managed service that **eliminates the need to install, operate, and maintain your own Kubernetes control plane on Amazon Web Services (AWS).** Kubernetes is an `open-source system that automates the management, scaling, and deployment of containerized applications`.
