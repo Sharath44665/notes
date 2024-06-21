@@ -1,3 +1,5 @@
+see practicals:
+
 **Microservices** can be deployed individually on separate servers provisioned with fewer resources - only what is required by each service and the host system itself, helping to lower compute resource expenses.
 
 Microservices-based architecture is aligned with Event-driven Architecture and Service-Oriented Architecture (SOA) principles, where complex applications are composed of small independent processes which communicate with each other through Application Programming Interfaces (APIs) over a network. APIs allow access by other internal services of the same application or external, third-party services and applications.
@@ -199,3 +201,139 @@ The **controller managers** are components of the control plane node running con
 The **kube-controller-manager** runs controllers or operators responsible to act when nodes become unavailable, to ensure container pod counts are as expected, to create endpoints, service accounts, and API access tokens.
 
 The **cloud-controller-manager** runs controllers or operators responsible to interact with the underlying infrastructure of a cloud provider when nodes become unavailable, to manage storage volumes when provided by a cloud service, and to manage load balancing and routing.
+
+## Practicals:
+
+Install K3d from https://github.com/k3s-io/k3s/tree/v1.30.0%2Bk3s1?tab=readme-ov-file  # read pre-requisites
+
+do this to run without sudo:
+
+``` bash
+sudo chown -R $USER /etc/rancher/
+```
+
+error: Unable to connect to the server: net/http: TLS handshake timeout
+do: 
+``` shell
+unset https_proxy
+unset http_proxy
+```
+
+**get pods:**
+
+![kubectlget pods](./img/kubectlScreenshot_20240621_131541.png)
+
+**kubectl create help**:
+
+![create help](./img/002kubectlScreenshot_20240621_131812.png)
+
+
+**create deployment and pull image from docker**:
+
+![deployment and pull img](./img/003kubectlScreenshot_20240621_132202.png)
+
+
+**get deployment**:
+
+![get deployment](./img/004kubectlScreenshot_20240621_132317.png)
+
+![get pods](./img/005kubectScreenshot_20240621_132430.png)
+
+automatically `replicaset` will be created:
+
+![replicaset](./img/006kubectlScreenshot_20240621_132558.png)
+
+
+**Layers of abstraction**:
+
+![abstraction](./img/007layersOfAbstractionScreenshot_20240621_132758.png)
+
+**edit deployment:**
+
+![edit depl](./img/008kubectlScreenshot_20240621_133412.png)
+
+![edit](./img/009kubectlScreenshot_20240621_133203.png)
+
+![get pods](./img/010kubectlScreenshot_20240621_134451.png)
+
+from the above pic, please note that the `old pod` has been `terminated` and its `not showing` in the output
+
+![replicaset](./img/011Screenshot_20240621_135010.png)
+
+### Debugging pods:
+
+``` shell
+kubectl logs nginx-depl-6bdcdf7f5-p5nkm
+```
+
+from above `nginx-depl-6bdcdf7f5-p5nkm` is a podname
+
+below we are not seeing the log:
+![logs](./img/kubectlScreenshot_20240621_150040.png)
+
+additional information on pod:
+``` shell
+kubectl describe  pod mongo-depl-558475c797-hct4r
+```
+![additional info pod](./img/kubectlScreenshot_20240621_153333.png)
+
+![contd](./img/kubectlScreenshot_20240621_153620.png)
+
+logs:
+
+![logs](./img/kubectlLogsScreenshot_20240621_171837.png)
+
+**another way of dealing with problem is:**
+
+```
+kubectl exect -it <podname> -- bin/bash
+```
+
+![interactive mode](./img/kubectlScreenshot_20240621_173622.png)
+
+### kubectl delete/apply configuration:
+
+```
+kubectl delete deployment  <deploymentName>
+```
+
+```
+kubectl apply -f <fileName>.yml
+```
+
+``` yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: nginx-deployment
+  labels: 
+    app: ngnix
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: nginx
+  template: 
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.16
+        ports: 
+        - containerPort: 80
+```
+
+![applying to file](./img/kubectlScreenshot_20240621_200607.png)
+
+
+edit the above code change `replicas: 2` then do the following:
+
+![update](./img/kubectlScreenshot_20240621_201317.png)
+
+
+
+
+
+
