@@ -1,4 +1,4 @@
-see practicals:
+[see practicals](#practicals)
 
 **Microservices** can be deployed individually on separate servers provisioned with fewer resources - only what is required by each service and the host system itself, helping to lower compute resource expenses.
 
@@ -208,6 +208,15 @@ Install K3d from https://github.com/k3s-io/k3s/tree/v1.30.0%2Bk3s1?tab=readme-ov
 
 do this to run without sudo:
 
+ec2-keep alive:
+
+/etc/ssh/sshd_config:
+
+```
+ClientAliveInterval 300
+ClientAliveCountMax 2
+```
+
 ``` bash
 sudo chown -R $USER /etc/rancher/
 ```
@@ -331,6 +340,167 @@ spec:
 edit the above code change `replicas: 2` then do the following:
 
 ![update](./img/kubectlScreenshot_20240621_201317.png)
+
+#### working with services:
+
+![nginx service](./img/kubectlScreenshot_20240622_083158.png)
+
+```
+kubectl describe service <serviceName>
+```
+![result of above line](./img/kubectlScreenshot_20240622_083700.png)
+
+#### getting more info related to above screenshot:
+getting wider information
+
+```
+kubectl get pod -o wide
+```
+
+![getting wider information](./img/k3sScreenshot_20240622_084222.png)
+
+#### statuts automatically generated?
+
+this is stored in etcd
+
+#### you can delete services using yaml file also:
+
+![command to delete](./img/k3sScreenshot_20240622_090208.png)
+
+
+## Complete Project:
+
+![projectImg](./img/projectScreenshot_20240622_180238.png)
+
+check the cluster:
+```
+kubectl get all
+```
+
+create base64 username and password:
+
+``` shell
+echo -n '<username>' | base64
+
+echo -n '<passwd>' | base64
+```
+
+![above](./img/k3sScreenshot_20240622_121556.png)
+
+creating secrets configuration:
+
+![above](./img/k3sScreenshot_20240622_123315.png)
+
+apply mongodb deployment:
+
+also use this command to see all ->
+```
+kubectl get all 
+```
+
+![above](./img/minkubeScreenshot_20240622_143140.png)
+
+
+if this is taking too long:
+```
+kubectl get pod --watch
+```
+
+or just describe pod to see what is happening.
+
+in yaml
+```
+---
+```
+the above line means, you are starting new a document
+
+then add service in mongodb-depl.yaml
+then apply it
+
+![add mongodb service](./img/minikubeScreenshot_20240622_162959.png)
+
+description:
+
+![check endpoints](./img/minikubeScreenshot_20240622_163346.png)
+
+get pod:
+
+![check ip](./img/minikubeScreenshot_20240622_163743.png)
+
+get all pods containing mongodb
+
+``` shell
+kubectl get all | grep mongodb
+```
+
+![pods with mongodb](./img/minikubeScreenshot_20240622_164145.png)
+
+control from center:
+![img](./img/minikubeScreenshot_20240622_170114.png)
+
+these components required to connect database:
+
+![env](./img/minikubeScreenshot_20240622_170821.png)
+
+terminal output:
+
+![above](./img/minikubeScreenshot_20240622_171749.png)
+
+see the logs:
+
+![logs command](./img/minikubeScreenshot_20240622_172455.png)
+
+contd and connected succesfully:
+
+![logs contd](./img/minikubeScreenshot_20240622_172651.png)
+
+to access through browser you need to create a service:
+
+mongo express external service: add it in mongoExpressDepl.yaml (see git hub)
+
+
+![how to](./img/minikubeScreenshot_20240622_173534.png)
+
+still peding:
+
+![pending](./img/minikubeScreenshot_20240622_174156.png)
+
+how to assign from above screenshot:
+
+```
+minikube service mongo-express-service
+```
+default username: admin password: pass
+
+add execution flow added Test-db:
+
+![execution flow](./img/executionFlowScreenshot_20240622_180637.png)
+
+k8s namespaces explained
+
+![namespace](./img/namespaceScreenshot_20240622_181630.png)
+
+cluster info:
+
+![clusterInfo](./img/clusterInfoScreenshot_20240622_181851.png)
+
+```
+kubectl create namespace demo-namespace
+```
+
+![createNamespace](./img/nameSpaceScreenshot_20240622_182246.png)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
