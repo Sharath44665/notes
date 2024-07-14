@@ -301,6 +301,8 @@ http {
 
 ```
 
+Priority can be listed as follows first row being highest priority, second row less priority as compared to first row and moving on
+
 ![priority change](./img/prirorityChange2024-07-14_18-03.png)
 
 <table>
@@ -348,4 +350,100 @@ None
 </td>
 </tr>
 </table>
+
+### Passing Arguments:
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                return 200 "Host: $host\nURI: $uri\nArgs: $args\n";
+        }
+}
+```
+
+![args](./img/args2024-07-14_18-27.png)
+
+from above, Instead of printing the literal string form of the query strings, you can access the individual values using the `$arg` variable.
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                set $name $arg_name;
+
+                return 200 "Host: $host\nURI: $uri\nName: $name\nArgs: $args\n";
+        }
+}
+```
+
+![printing name:](./img/name2024-07-14_18-35.png)
+
+### Redirects and rewrites
+
+redirecting
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                root /var/www/html/static-demo;
+
+                location = /indexPage {
+                        return 307 /index.html;
+                }
+
+                location = /aboutPage {
+                        return 307 /about.html;
+                }
+
+        }
+}
+```
+
+![redirect](./img/redirect2024-07-14_18-47.png)
+
+rewriting:
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                root /var/www/html/static-demo;
+
+                rewrite /indexPage /index.html;
+                rewrite /aboutPage /about.html;
+        }
+}
+```
+
+![rewrite demo](./img/rewriteDemo2024-07-14_18-54.png)
+
+
+
+
 
