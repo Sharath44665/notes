@@ -129,6 +129,223 @@ see the difference
 
 ![include mimes](./img/loadMimes2024-07-14_16-03.png)
 
+![diff](./img/diff2024-07-14_16-07.png)
+
+### Routing in Nginx
+
+nginx.conf:
+
+```
+events {}
+
+http {
 
 
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location /sharath {
+                        return 200 "routing from location sharath\n";
+                }
+
+        }
+}
+
+```
+
+![fromLocation](./img/location2024-07-14_16-39.png)
+
+from the above screenshot if you do `curl -i http://localhost/sharathchandra`, you still get the same response as above
+
+#### To perform exact match
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location = /sharath {
+                        return 200 "routing from location sharath\n";
+                }
+
+        }
+}
+```
+
+test and reload nginx, run the previous code to see the difference
+
+#### regx Match
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location = /sharath {
+                        return 200 "routing from location sharath\n";
+                }
+
+                location ~ /page[0-9] {
+                        return 200 "returning from page()s\n";
+                }
+
+        }
+}
+
+```
+
+![regxMatch](./img/regxMatch2024-07-14_16-56.png)
+
+**case insensitive:**
+
+![case sensitive](./img/caseSensitive2024-07-14_17-03.png)
+
+to make case insensitive, do this:
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location = /sharath {
+                        return 200 "routing from location sharath\n";
+                }
+
+                location ~* /page[0-9] {
+                        return 200 "returning from page()s\n";
+                }
+
+        }
+}
+
+```
+
+![case insensitive](./img/case2024-07-14_17-07.png)
+
+
+**lets check priority:**
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location = /sharath {
+                        return 200 "routing from location sharath\n";
+                }
+
+                location /Page2 {
+                        return 200 "Page 2 found - no pattern matching\n";
+                }
+
+                location ~* /page[0-9] {
+                        return 200 "Page 2 found - pattern matching\n";
+                }
+
+        }
+}
+
+```
+
+![priorityCheck](./img/priority2024-07-14_17-54.png)
+
+**Above priority can be changed a little:**
+
+using `^~` , we can make the priority which is our preferential
+
+```
+events {}
+
+http {
+
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location = /sharath {
+                        return 200 "routing from location sharath\n";
+                }
+
+                location ^~ /Page2 {
+                        return 200 "Page 2 found - priority changed by me\n";
+                }
+
+                location ~* /page[0-9] {
+                        return 200 "Page 2 found - pattern matching\n";
+                }
+
+        }
+}
+
+```
+
+![priority change](./img/prirorityChange2024-07-14_18-03.png)
+
+<table>
+<tr>
+<th>
+Match
+</th>
+<th>
+Modifier
+</th>
+</tr>
+<tr>
+<td>
+Exact
+</td>
+<td>
+
+`=`
+</td>
+</tr>
+<tr>
+<td>
+Preferential Prefix 
+</td>
+<td>
+
+`^~`
+</td>
+</tr>
+<tr>
+<td>
+regx
+</td>
+<td>
+
+`~` or `~*`
+</td>
+</tr>
+<tr>
+<td>
+Prefix Match
+</td>
+<td>
+None
+</td>
+</tr>
+</table>
 
