@@ -667,15 +667,181 @@ http {
     }
 }
 ```
+### PHP With NGINX
+
+move `php-demo` to `/var/www/html/`
+
+``` shell
+sudo apt install php-fpm -y
+```
+
+``` shell
+cd /var/www/html/
+
+php -S localhost:8000
+```
+
+![php server](./img/phpServer2024-07-15_19-54.png)
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+                root /var/www/html/php-demo;
+
+                index index.php;
+
+                location / {
+                        try_files $uri $uri/ =404;
+
+                }
+
+                location ~ \.php$ {
+                        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+                        fastcgi_param REQUEST_METHOD $request_method;
+                        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                }
+        }
+}
+
+```
+- by writing `index index.php`, you're instructing NGINX to use the index.php file as root
+- If you write something like `index index.php index.html`, NGINX will first look for index.php. If it doesn't find that file, it will look for an indeiiix.html file.
+- The `try_files` directive inside the first location context is the same as you've seen in a previous section. The `=404` at the end indicates the error to throw if none of the files are found.
+
+well nginx is crashed:
+
+![nginx crash](./img/nginxOutputPhp2024-07-15_20-13.png)
+
+``` shell
+tail -n 1 /var/log/nginx/error.log
+
+ps aux | grep nginx
+```
+
+![owned by nobody](./img/ownedByNobody2024-07-15_20-24.png)
+
+As you can see, the process is currently owned by nobody. Now inspect the PHP-FPM process.
+
+``` shell
+ps aux | grep php
+```
+
+![another user](./img/anotherUser2024-07-15_20-27.png)
+
+owned by the `www-data` user. This is why NGINX is being denied access to this process.
+
+#### To solve this issue, update your configuration as follows:
+
+The `user` directive is responsible for setting the owner for the NGINX worker processes
+
+```
+user www-data;
+
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+                root /var/www/html/php-demo;
+
+                index index.php;
+
+                location / {
+                        try_files $uri $uri/ =404;
+
+                }
+
+                location ~ \.php$ {
+                        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+                        fastcgi_param REQUEST_METHOD $request_method;
+                        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                }
+        }
+}
+```
+
+``` shell
+ps aux | grep nginx
+```
+
+![success](./img/successPhp2024-07-15_20-43.png)
+
+---
+
+## Use NGINX as a Load Balancer
+
+move `load-balancer-demo` to `/var/www/html/`
+
+``` shell
+cd /var/www/html/load-balancer-demo
+
+pm2 start server-1.js 
+pm2 start server-2.js 
+pm2 start server-3.js 
+```
+![start servers](./img/serverStart2024-07-15_20-52.png)
+
+``` shell
+pm2 list
+```
+
+check `http://localhost:3001/`, `http://localhost:3002/`, `http://localhost:3003/`
+
+Now update config
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        upstream backend_servers {
+                server localhost:3001;
+                server localhost:3002;
+                server localhost:3003;
+        }
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location / {
+                        proxy_pass http://backend_servers;
+                }
+
+        }
+}
+```
+
+do in bash:
+``` shell
+while sleep 0.5; do curl http://nginx-handbook.test; done
+```
+
+![loadBalancer](./img/loadBalancerDemoOne2024-07-15_21-15.png)
+
+As you can see from the responses from the server, NGINX is load balancing the servers automatically.
+
+`pm2 stop server-1 server-2 server-3`
 
 
+### How to Optimize NGINX for Maximum Performance
 
+#### How to Configure Worker Processes and Worker Connections
 
-
-
-
-
-
+``` shell
+sudo systemctl status nginx.service
+```
+As you can see, right now there is only one NGINX worker process on the system. This number, however, can be changed by making a small change to the configuration file.
 
 
 
