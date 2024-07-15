@@ -443,6 +443,145 @@ http {
 
 ![rewrite demo](./img/rewriteDemo2024-07-14_18-54.png)
 
+### try_files directive:
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                root /var/www/html/static-demo;
+
+                try_files /the-nginx-handbook.jpg /notFound;
+
+                location /notFound {
+                        return 404 "the file was not found";
+                }
+        }
+}
+```
+
+test, reload and go to `http://localhost/` 
+
+=> 
+
+![try](./img/try2024-07-15_14-46.png)
+
+Now the problem with writing a `try_files` directive this way is that no matter what URL you visit, as long as a request is received by the server and the the-nginx-handbook.jpg file is found on the disk, NGINX will send that back.Now the problem with writing a `try_files` directive this way is that no matter what URL you visit, as long as a request is received by the server and the the-nginx-handbook.jpg file is found on the disk, NGINX will send that back.
+
+meaning of above line, if you do `http://localhost/dummy.png`, you still get the same response as you see in the above pic
+
+we can avoid the above bug by doing this:
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                root /var/www/html/static-demo;
+
+                try_files $uri  /notFound;
+
+                location /notFound {
+                        return 404 "the file was not found";
+                }
+        }
+}
+```
+test and reload the nginx for above code
+
+now if you do `http://localhost/dummy.png` you get the error: "the file was not found"
+
+### Loggin in nginx
+
+cd `/var/log/nginx`
+
+rm log files:
+> sudo rm error.log access.log
+
+create new files:
+``` shell
+sudo touch error.log access.log
+```
+
+reopen nginx
+
+``` shell
+sudo nginx -s reopen
+```
+
+do this **to get access logs**: 
+
+`curl -i http://localhost/index.html` , which should give `HTTP/1.1 200 OK` 
+
+![accessLog](./img/accessLogs2024-07-15_15-25.png)
+
+ we can change this behavior using the `access_log` directive:
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                root /var/www/html/static-demo;
+
+                location / {
+                        return 200 "Hello World from home";
+                }
+
+                location = /admin {
+                        access_log /var/log/nginx/admin.log;
+
+                        return 200 "this will be logged to seperate file";
+                }
+
+                location = /noLogging {
+                        access_log off;
+
+                        return 200 "there will be no logging";
+                }
+        }
+}
+```
+test and reload nginx
+
+![demo](./img/accessLogDemo2024-07-15_15-46.png)
+
+#### to get logs in `/var/logs/nginx/error.log`, we need to do crash the nginx servers or do some mistakes in nginx.conf and check the `/var/logs/nginx/error.log`
+
+There are eight levels of error messages:
+
+`debug` – Useful debugging information to help determine where the problem lies.
+    
+`info` – Informational messages that aren't necessary to read but may be good to know.
+   
+`notice` – Something normal happened that is worth noting.
+    
+`warn` – Something unexpected happened, however is not a cause for concern.
+    
+`error` – Something was unsuccessful.
+    
+`crit` – There are problems that need to be critically addressed.
+    
+`alert` – Prompt action is required.
+    
+`emerg` – The system is in an unusable state and requires immediate attention.
+
 
 
 
