@@ -582,6 +582,100 @@ There are eight levels of error messages:
     
 `emerg` – The system is in an unusable state and requires immediate attention.
 
+---
+
+### Use NGINX as a Reverse Proxy
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location / {
+                        proxy_pass "http://nginx.org/";
+                }
+        }
+}
+```
+
+modify the hosts file:
+
+![host file modify](./img/hostsFileChange2024-07-15_16-13.png)
+
+result:
+
+![result](./img/endGoal2024-07-15_16-15.png)
+
+### node js with nginx - proxy
+
+move project `node-js-demo` to `/var/www/html/node-js-demo`
+
+> install nodejs, npm 
+
+after installation run this command: `sudo npm install -g pm2`
+
+inside directory `/var/www/html/node-js-demo` , run this command:
+
+``` shell
+pm2 start app.js
+```   
+
+![nodejsApp](./img/nodeJsOutput2024-07-15_18-31.png)
+
+**nginx as a reverse proxy:**
+
+```
+events {}
+
+http {
+        include /etc/nginx/mime.types;
+
+        server {
+                listen 80;
+                server_name nginx-helloworld.test;
+
+                location / {
+                        proxy_pass http://localhost:3000;
+                }
+        }
+}
+```
+
+![helloworld](./img/nodejsNginx2024-07-15_18-52.png)
+
+For example, if your application handles web socket connections, then you should update the configuration as follows:
+
+```
+events {
+
+}
+  
+http {
+    listen 80;
+    server_name nginx-handbook.test
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+    }
+}
+```
+
+
+
+
+
+
+
+
+
 
 
 
