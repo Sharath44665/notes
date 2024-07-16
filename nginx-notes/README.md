@@ -843,6 +843,90 @@ sudo systemctl status nginx.service
 ```
 As you can see, right now there is only one NGINX worker process on the system. This number, however, can be changed by making a small change to the configuration file.
 
+following code will create two nginx service
+
+```
+worker_processes 2;
+
+events {
+
+}
+
+http {
+
+    server {
+
+        listen 80;
+        server_name nginx-handbook.test;
+
+        return 200 "worker processes and worker connections configuration!\n";
+    }
+}
+```
+> now chech the nginx.service status, we have two worker process
+
+following code will get back to 1 worker service:
+
+```
+worker_processes auto;
+
+events {
+
+}
+
+http {
+
+    server {
+
+        listen 80;
+        server_name nginx-handbook.test;
+
+        return 200 "worker processes and worker connections configuration!\n";
+    }
+}
+```
+
+### Compress Responses
+
+```
+worker_processes auto;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include /env/nginx/mime.types;
+
+    gzip on;
+    gzip_comp_level 3;
+
+    gzip_types text/css text/javascript;
+
+    server {
+
+        listen 80;
+        server_name nginx-handbook.test;
+
+        root /srv/nginx-handbook-demo/static-demo;
+        
+        location ~* \.(css|js|jpg)$ {
+            access_log off;
+            
+            add_header Cache-Control public;
+            add_header Pragma public;
+            add_header Vary Accept-Encoding;
+            expires 1M;
+        }
+    }
+}
+```
+
+``` shell
+curl -I -H "Accept-Encoding: gzip" http://nginx-helloworld.test/mini.min.css
+```
+
+ from the output: `Content-Encoding` is now set to `gzip` meaning this is the compressed version of the file.
 
 
 
