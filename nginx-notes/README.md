@@ -6,6 +6,7 @@ ofcourse, first you need to install nginx
 ``` shell
 sudo systemctl status nginx.service
 ```
+project codes can be found in here: 👉[click me ](https://github.com/Sharath44665/nginxWorkStation/tree/main/nginx-projects)👈
 
 `nginx.conf` file exist in `/etc/nginx`
 
