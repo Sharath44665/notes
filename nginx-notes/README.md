@@ -46,7 +46,7 @@ sudo nginx -s reload
 
 in the browser do this:
 
-![output](./img/Pictures/2024-07-14_15-17.png)
+![output](./img/2024-07-14_15-17.png)
 
 terminal Output:
 
