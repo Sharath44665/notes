@@ -282,6 +282,16 @@ from above `nginx-depl-6bdcdf7f5-p5nkm` is a podname
 below we are not seeing the log:
 ![logs](./img/kubectlScreenshot_20240621_150040.png)
 
+#### seeing events:
+```
+kubectl get events
+```
+
+```
+kubectl get events --sort-by=.metadata.creationTimestamp
+```
+      
+
 additional information on pod:
 ``` shell
 kubectl describe  pod mongo-depl-558475c797-hct4r
