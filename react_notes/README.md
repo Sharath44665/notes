@@ -20,7 +20,7 @@ starting:
         ```
 
         ![useState(0)](./img/Screenshot_20240505_131438.png)
-    - [work on animals project](https://github.com/Sharath44665/react_workspace/tree/main/animals)
+    - [work on animals project](https://github.com/Sharath44665/reactWorkspace/tree/main/04animals)
 
        ![image show animals](./img/Screenshot_20240508_125937.png)
 
