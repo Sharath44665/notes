@@ -94,10 +94,10 @@ public class CopyConstructorExample {
 }
 ```
 ### static variable:
-- [ExampleStaticVariable](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/ExampleStaticVariable.java#L20) 
-- [Example2StaticVariable](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/Example2StaticVariable.java#L15)
-- [CubeCalculation](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/CubeCalculation.java#L7)
-- [ExampleStaticBlock](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/ExampleStaticBlock.java#L3)
+- [ExampleStaticVariable](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/ExampleStaticVariable.java) 
+- [Example2StaticVariable](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/Example2StaticVariable.java)
+- [CubeCalculation](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/CubeCalculation.java)
+- [ExampleStaticBlock](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/ExampleStaticBlock.java)
 
 ### Inheritance
 - **Class:** A class is a group of objects which have common properties. It is a template or blueprint from which objects are created.
@@ -126,7 +126,7 @@ To reduce the complexity and simplify the language, multiple inheritance is not 
 
 ![BankExample](./img//Screenshot_20240519_133451.png)
 
-[☝️click for code](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/BankMethodOverriding.java#L27)
+[☝️click for code](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/BankMethodOverriding.java)
 
 **Can we override static method?**
 
@@ -141,7 +141,7 @@ No, because the main is a static method.
 2. super can be used to invoke parent class method
 3. super is used to invoke parent class constructor.
 
-> [SuperVariableExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperVariableExample.java#L15), [SuperMethodExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperMethodExample.java#L17), [SuperInvokeConstructor](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperInvokeConstructor.java#L14), [SuperExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperExample.java#L25)
+> [SuperVariableExample](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/SuperVariableExample.java), [SuperMethodExample](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/SuperMethodExample.java), [SuperInvokeConstructor](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/SuperInvokeConstructor.java), [SuperExample](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/SuperExample.java)
 
 
 **What is invoked first, instance initializer block or constructor?**
@@ -180,7 +180,7 @@ public class InitializerBlockExample {
 
 ![abstract-class](./img/abstract-class-in-java.jpg)
 
-> [AbstractClassExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/AbstractClassExample.java#L12), [AbstractExample2](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/AbstractExample2.java#L29)
+> [AbstractClassExample](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/AbstractClassExample.java), [AbstractExample2](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/AbstractExample2.java)
 
 **Interface in Java**
 
@@ -219,8 +219,8 @@ The interface in Java is a mechanism to achieve abstraction
 | **Public** | Y | Y | Y | Y |
 
 ### Call by value and reference
-> [CallByValueDemo2](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/CallByValueDemo2.java#L10), [CallByValueDemo](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/CallByValueDemo.java#L10)
-
+> [CallByValueDemo2](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/CallByValueDemo2.java), [CallByValueDemo](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/CallByValueDemo.java)
+    
 ### String
 > ImmutableStringDemo, ImmutableStringDemo2, StringEqualsDemo
 
