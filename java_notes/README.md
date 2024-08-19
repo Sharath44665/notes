@@ -1,4 +1,4 @@
-****static**: The core advantage of the static method is that there is no need to create an object to invoke the static method
+**static**: The core advantage of the static method is that <ins>there is no need to create an object to invoke the static method</ins>
 
 #### Types of Variables
 1. **Local Variable**:
@@ -9,7 +9,7 @@ A local variable cannot be defined with "static" keyword.
 
 2. **Instance Variable**:
 
-A variable declared inside the class but outside the body of the method, is called an instance variable. It is not declared as static.
+A variable declared <ins>inside the class</ins> but outside the body of the method, is called an instance variable. It is not declared as static.
 
 It is called an instance variable because its value is instance-specific and is not shared among instances.
 
@@ -43,19 +43,20 @@ A class is a group of objects which have common properties. It is a template or 
 
 **examples in Repo:**
 
-- Student
-- EmployeeData
-- SimpleBank
+- [Student](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/Student.java)
+- [EmployeeData](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/EmployeeData.java)
+- [SimpleBank](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/SimpleBank.java)
 
 ### Constructor in Java
 
 constructor is a block of codes similar to the method. It is called when an instance of the class is created. At the time of calling constructor, memory for the object is allocated in the memory.
 
-- StudentConstructorExample
+- [StudentConstructorExample](https://github.com/Sharath44665/java-workspace/blob/main/src/mypackage/StudentConstructorExample.java)
 
 **Constructor overloading** # see google, tip same as method overloading but with constructor
 
-** Copy Constructor **: 
+**Copy Constructor**: 
+
 ``` java
 package mypackage;
 
@@ -93,10 +94,10 @@ public class CopyConstructorExample {
 }
 ```
 ### static variable:
--  ExampleStaticVariable
-- Example2StaticVariable
-- CubeCalculation
-- ExampleStaticBlock
+- [ExampleStaticVariable](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/ExampleStaticVariable.java#L20) 
+- [Example2StaticVariable](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/Example2StaticVariable.java#L15)
+- [CubeCalculation](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/CubeCalculation.java#L7)
+- [ExampleStaticBlock](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/ExampleStaticBlock.java#L3)
 
 ### Inheritance
 - **Class:** A class is a group of objects which have common properties. It is a template or blueprint from which objects are created.
@@ -112,11 +113,11 @@ public class CopyConstructorExample {
 
 To reduce the complexity and simplify the language, multiple inheritance is not supported in java.
 
-** Usage of Java Method Overriding**:
+**Usage of Java Method Overriding**:
 - Method overriding is used to provide the specific implementation of a method which is already provided by its superclass
 - Method overriding is used for runtime polymorphism
 
-** Rules for Java Method Overriding**:
+**Rules for Java Method Overriding**:
 1. The method must have the same name as in the parent class
 2. The method must have the same parameter as in the parent class.
 3. There must be an IS-A relationship (inheritance).
@@ -124,6 +125,8 @@ To reduce the complexity and simplify the language, multiple inheritance is not 
 **Method Overriding Bank Example**:
 
 ![BankExample](./img//Screenshot_20240519_133451.png)
+
+[☝️click for code](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/BankMethodOverriding.java#L27)
 
 **Can we override static method?**
 
@@ -138,7 +141,7 @@ No, because the main is a static method.
 2. super can be used to invoke parent class method
 3. super is used to invoke parent class constructor.
 
-> SuperVariableExample, SuperMethodExample, SuperInvokeConstructor, SuperExample
+> [SuperVariableExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperVariableExample.java#L15), [SuperMethodExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperMethodExample.java#L17), [SuperInvokeConstructor](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperInvokeConstructor.java#L14), [SuperExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/SuperExample.java#L25)
 
 
 **What is invoked first, instance initializer block or constructor?**
@@ -166,6 +169,7 @@ public class InitializerBlockExample {
 > This is a Initializer Block
 > 
 > Bike Object is created
+>
 > This is a Initializer Block
 >
 > Bike Object is created
@@ -176,18 +180,18 @@ public class InitializerBlockExample {
 
 ![abstract-class](./img/abstract-class-in-java.jpg)
 
-> AbstractClassExample, AbstractExample2
+> [AbstractClassExample](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/AbstractClassExample.java#L12), [AbstractExample2](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/AbstractExample2.java#L29)
 
 **Interface in Java**
 
-An interface in Java is a blueprint of a class. It has static constants and abstract methods.
+An interface in Java <ins>is a blueprint of a class</ins>. It has static constants and abstract methods.
 
 The interface in Java is a mechanism to achieve abstraction
 
 **Why use Java interface?**
 
-- It is used to achieve abstraction.
-- By interface, we can support the functionality of multiple inheritance.
+- It is used to achieve <ins>abstraction</ins>.
+- By interface, we can support the functionality of <ins>multiple inheritance</ins>.
 - It can be used to achieve loose coupling.
 
 ![interface](./img/interfacerelation.jpg)
@@ -215,7 +219,7 @@ The interface in Java is a mechanism to achieve abstraction
 | **Public** | Y | Y | Y | Y |
 
 ### Call by value and reference
-> CallByValueDemo2, CallByValueDemo
+> [CallByValueDemo2](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/CallByValueDemo2.java#L10), [CallByValueDemo](https://github.com/Sharath44665/java-workspace/blob/f8d17ccca7846f9b421ee31927241e087bbba88b/src/mypackage/CallByValueDemo.java#L10)
 
 ### String
 > ImmutableStringDemo, ImmutableStringDemo2, StringEqualsDemo
