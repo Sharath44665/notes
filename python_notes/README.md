@@ -1,3 +1,30 @@
+## Built in Functions:
+
+### extend demo:
+
+``` python
+myArray = ["Sharath"]
+fruitsTuple = ("mango", "apple", "orange")
+carSet = {"toyota", "honda", "maruti"}
+
+myArray.extend(fruitsTuple)
+print(myArray) # ['Sharath', 'mango', 'apple', 'orange']
+myArray.extend(carSet)
+print(myArray) # ['Sharath', 'mango', 'apple', 'orange', 'honda', 'toyota', 'maruti']
+```
+**above code can be written as below in another way:**
+
+``` python
+myArray = ["Sharath"]
+fruitsTuple = ("mango", "apple", "orange")
+carSet = {"toyota", "honda", "maruti"}
+
+myArray += fruitsTuple
+print(myArray) # ['Sharath', 'mango', 'apple', 'orange']
+myArray += carSet
+print(myArray) # ['Sharath', 'mango', 'apple', 'orange', 'toyota', 'maruti', 'honda']
+```
+
 - work on logical operation
    - treasure island #
 - work on loops, functions
