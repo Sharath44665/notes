@@ -25,6 +25,41 @@ myArray += carSet
 print(myArray) # ['Sharath', 'mango', 'apple', 'orange', 'toyota', 'maruti', 'honda']
 ```
 
+## List Slicing:
+
+syntax:
+
+```
+Lst[ Initial : End : IndexJump ]
+```
+### Examples:
+
+``` python
+arr  = [50, 70, 30, 20, 90, 10, 50]
+
+newList = arr[3:]
+print(newList) # [20, 90, 10, 50]
+
+newList = arr[-3:]
+print(newList) # [90, 10, 50]
+
+newList = arr[1:3]
+print(newList) # [70, 30]
+
+newList = arr[-1: -4]
+print(newList) # []
+
+newList = arr[-4: -1]
+print(newList) # [20, 90, 10]
+# or
+newList = arr[3: -1]
+print(newList)
+
+
+newList = arr[::-1]
+print(newList) # reversing array
+```
+
 - work on logical operation
    - treasure island #
 - work on loops, functions
