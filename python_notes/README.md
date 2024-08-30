@@ -351,7 +351,7 @@ print(dateOfBirth)  # 1995-10-25 00:00:00
    - [spotify + top hot 100 bill board](https://github.com/Sharath44665/webDevelopment/tree/main/billboard-hot-100) # webscraping + api
    - [automated amazon price tracker](https://github.com/Sharath44665/webDevelopment/tree/main/automated-amazon-price-tracker) # webscraping + api
    
-
+### below code is for getting response:
 
 ``` py
 import requests
@@ -390,6 +390,61 @@ print(sunrise)
 print(sunset)
 print(timeNow.hour) 
 ```
+
+### request post:
+
+``` py
+Create a graph definition
+graphConfig ={
+    "id":GRAPH_ID,
+    "name": "Cyclic Graph",
+    "unit": "km",
+    "type" : "float",
+    "color" : "sora"
+}
+
+webHeader= {
+    "X-USER-TOKEN": TOKEN
+}
+response = requests.post(url=f"{webUrl}/{USERNAME}/graphs", json=graphConfig, headers=webHeader)
+print(response.text)
+```
+
+### request put (Update something):
+
+example: flight deal
+
+``` py
+for idx in range(1, length+1):
+    updateSheetEndpoint = f"https://api.sheety.co/6528310ba568f8dce1c56797433c6ba8/flightDeals/prices/{idx + 1}"
+    updateConfig = {
+    "price": {
+                    # "iataCode": f"Testing"
+        columnName: f"{dataList[idx-1]}"
+        }
+    }
+
+    response = requests.put(url=updateSheetEndpoint, json=updateConfig, headers=self.authHeader)
+    response.raise_for_status()
+    print(f"writing to {columnName} in google sheet ")
+    print(response.text)
+```
+
+### request Delete (as usual delete):
+
+example: habit-tracker
+
+``` py
+# Delete the registered "Pixel".
+webHeader= {
+    "X-USER-TOKEN": TOKEN
+}
+
+deleteEndpoint = f"{webUrl}/{USERNAME}/graphs/{GRAPH_ID}/{formatDate}"
+response = requests.delete(url=deleteEndpoint, headers=webHeader)
+print(response.text)
+```
+
 - WebDevelopment
    - [Motivation meme project](https://github.com/Sharath44665/webDevelopment/tree/main/6.4%20Motivation%20Meme%20Project)
    - [100 Movies must watch web Scraping](https://github.com/Sharath44665/webDevelopment/tree/main/100-movies-to-watch-web-scraping) # BeautifulSoup
