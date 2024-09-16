@@ -40,6 +40,7 @@ go to `~/.local/share/applications`, create `somethingSoftware.desktop` file cop
 [Desktop Entry]
 Version=1.0
 Name=Eclipse
+Comment=Description of the app
 Exec=/home/sharath/Software/eclipse/eclipse
 Icon=/home/sharath/Software/eclipse/icon.xpm
 Terminal=false
