@@ -30,4 +30,19 @@ sudo dnf install ./path-to-file.rpm
 
 `ctrl + u` = delete everything in terminal
 
+## creating desktop file
+
+please note its a simple .desktop file
+
+go to `~/.local/share/applications`, create `somethingSoftware.desktop` file copy paste and modify
+
+``` shell
+[Desktop Entry]
+Version=1.0
+Name=Eclipse
+Exec=/home/sharath/Software/eclipse/eclipse
+Icon=/home/sharath/Software/eclipse/icon.xpm
+Terminal=false
+Type=Application
+```
 
