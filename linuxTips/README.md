@@ -47,3 +47,17 @@ Terminal=false
 Type=Application
 ```
 
+## Postman Error:
+
+**Error:**
+
+>no such file or directory, open '/home/sharath/.config/Postman/proxy/postman-proxy-ca.crt'
+
+**Fix** by installing openssl
+
+```
+sudo dnf install openssl
+```
+
+
+
