@@ -67,4 +67,35 @@ sudo dnf install openssl
 
 This command will reduce the quality of the image to 80% and resize it to 50% of its original size. You can adjust the quality and size parameters as per your requirements.
 
+## How to Install MongoDB in Fedora:
+
+Download the tar.gz file (amzon linux also works)
+
+- create folder `/home/your username/new folder name/`
+- extract `tar.gz` file
+- `cd` to `bin` directory of mongodb extracted file
+- run this command
+
+```
+./mongod --dbpath /home/your username/new folder name
+```
+- now mongodb server started.
+
+### to check the above step:
+
+- install mongodb compass or mongosh from official directory
+- try connecting to mongodb compass or 
+- use mongosh and type 
+
+```
+mongosh
+```
+
+- which will automatically connects to local server
+- then type this:
+
+```
+show dbs;
+```
+
 
