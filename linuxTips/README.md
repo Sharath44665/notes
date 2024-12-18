@@ -1,5 +1,10 @@
 # Linux Tips:
 
+## Linux mint: disable alt + click
+
+menu -> search for 'windows' -> click on behaviour -> **disable** special key to move and resize windows
+
+
 ### converting deb to rpm and install:
 
 **Install alien:**
