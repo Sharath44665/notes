@@ -103,4 +103,24 @@ mongosh
 show dbs;
 ```
 
+### gwenview, fractional scaling on high dpi monitors fix
+
+if image quality gets low when editing image via gwenview, here is the solution
+
+1. Create `/usr/local/bin/gwenview` with the following contents:
+
+```
+#!/bin/sh
+set -e
+unset QT_SCREEN_SCALE_FACTORS
+exec /usr/bin/gwenview "$@"
+```
+
+2. Change permission to executable, and done.
+
+```
+sudo chmod a+rx /usr/local/bin/gwenview
+```
+
+
 
