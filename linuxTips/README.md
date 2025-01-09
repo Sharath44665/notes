@@ -52,6 +52,19 @@ Terminal=false
 Type=Application
 ```
 
+### creating .desktop file for `software.jar` file:
+
+> java must be installed
+
+```
+[Desktop Entry]
+Type=Application
+Categories=Game;
+Name=Minecraft
+Icon=/path/to/icon.png
+Exec=java -jar /path/to/Minecraft.jar
+```
+
 ## Postman Error:
 
 **Error:**
