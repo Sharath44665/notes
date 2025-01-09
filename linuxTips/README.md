@@ -65,6 +65,14 @@ Icon=/path/to/icon.png
 Exec=java -jar /path/to/Minecraft.jar
 ```
 
+## If eclipse is throwing lots of errors while downloading maven dependencies then do this:
+
+cd project directory
+
+- "./mvnw eclipse:eclipse" for this project in the command line.
+- "Refresh/F5" this project in eclipse or restart.
+
+
 ## Postman Error:
 
 **Error:**
