@@ -89,6 +89,8 @@ sudo dnf install openssl
 
 ## Reduce the size of photo:
 
+> install imagemagic to work below code
+
 `mogrify -quality 80% -resize 50% myphoto.jpg`
 
 This command will reduce the quality of the image to 80% and resize it to 50% of its original size. You can adjust the quality and size parameters as per your requirements.
