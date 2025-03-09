@@ -8,4 +8,5 @@ https://www.fotor.com/photo-editor-app/editor/ai
 
 https://deepl.com/en/write
 
-
+## movies anime list movie
+https://fmhy.net/videopiracyguide#anime-downloading
