@@ -10,3 +10,7 @@ https://deepl.com/en/write
 
 ## movies anime list movie
 https://fmhy.net/videopiracyguide#anime-downloading
+
+## download twitter video
+
+https://twittervideodownloader.com/
