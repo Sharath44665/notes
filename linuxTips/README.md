@@ -145,5 +145,14 @@ exec /usr/bin/gwenview "$@"
 sudo chmod a+rx /usr/local/bin/gwenview
 ```
 
+### kubuntu battery icon not showing:
+
+install `sudo apt-get install acpi`
+
+display battery status:
+```
+acpi -b
+```
+
 
 
