@@ -154,5 +154,24 @@ display battery status:
 acpi -b
 ```
 
+## yt-dlp
+
+download video with quality:
+
+```
+yt-dlp -S "res:480" youtubeURL
+```
+
+dont download playlist
+```
+yt-dlp -S "res:480" --no-playlist youtubeURL
+```
+
+download video as mp3:
+
+```
+yt-dlp -x --audio-format mp3 --audio-quality 0 youtubeURL 
+```
+
 
 
